@@ -26,23 +26,23 @@ class signUpContr extends signUp
     public function signUpUser()
     {
         if ($this->emptyInput() === false) {
-            header('location: ./index.php?error=emptyinput');
+            echo "<script>confirm(\"Please fill in all the inputs\");</script>";
             exit();
         }
         if ($this->isValidNickname() === false) {
-            header('location: ./index.php?error=invalidNickname');
+            echo "<script>confirm(\"Invalid Nickname\");</script>";
             exit();
         }
         if ($this->isValidEmail() === false) {
-            header('location: ./index.php?error=invalidEmail');
+            echo "<script>confirm(\"Invalid Email\");</script>";
             exit();
         }
         if ($this->validatePassword() === false) {
-            header('location: ./index.php?error=passwordMatch');
+            echo "<script>confirm(\"Passwords doesn't match\");</script>";
             exit();
         }
         if ($this->checkUserAvailability() === false) {
-            header('location: ./index.php?error=userAvailability');
+            echo "<script>confirm(\"User isn't available, please choose another one\");</script>";
             exit();
         }
         $this->setUser($this->nickName, $this->email, $this->password, $this->address, $this->phone, $this->CIN, $this->occupation, $this->birthDate);

@@ -24,45 +24,39 @@ class LibraryItemReservation extends dbConnect
     public function reserveItem()
     {
         $this->connect();
-        try {
-            $this->connection->beginTransaction();
-            $stmt = $this->connection->prepare("SELECT STATUS FROM `collection` WHERE Collection_ID = ? ; ");
-            $stmt->execute(array($this->item_id));
-            $status = $stmt->fetchColumn();
-            $stmt = null;
-            if ($status === "Available") {
-                $stmt = $this->connection->prepare("UPDATE `collection` SET `Status`='Reserved' WHERE Collection_ID = ? ;");
+        $this->connection->beginTransaction();
+        $stmt = $this->connection->prepare("SELECT COUNT(Reservation_ID) AS num_reservations
+            FROM reservation;");
+        $stmt->execute();
+        $reservation_count = $stmt->fetchColumn();
+        if ($reservation_count < 3) :
+            try {
+                $stmt = $this->connection->prepare("SELECT STATUS FROM `collection` WHERE Collection_ID = ? ; ");
                 $stmt->execute(array($this->item_id));
-                $current_date_time = date('Y-m-d H:i:s');
-                $current_date_time_plus_24_hours = date('Y-m-d H:i:s', strtotime('+24 hours'));
-                $stmt = $this->connection->prepare("INSERT INTO `reservation`(`Reservation_Date`, `Reservation_Expiration_Date`, `Collection_ID`, `Nickname`) VALUES (?,?,?,?)");
-                $stmt->execute(array($current_date_time, $current_date_time_plus_24_hours, $this->item_id, $this->user_id));
-                echo "You've successfully reserved this item";
-                $this->connection->commit();
-            } else if ($status === "Reserved") {
-                header("location: ../reservations.php?status=reserved");
-            } else if ($status === "Borrowed") {
-                header("location: ../reservations.php?status=borrowed");
-            } else {
-                echo "This item is unavailable";
+                $status = $stmt->fetchColumn();
+                $stmt = null;
+                if ($status === "Available") {
+                    $stmt = $this->connection->prepare("UPDATE `collection` SET `Status`='Reserved' WHERE Collection_ID = ? ;");
+                    $stmt->execute(array($this->item_id));
+                    $current_date_time = date('Y-m-d H:i:s');
+                    $current_date_time_plus_24_hours = date('Y-m-d H:i:s', strtotime('+24 hours'));
+                    $stmt = $this->connection->prepare("INSERT INTO `reservation`(`Reservation_Date`, `Reservation_Expiration_Date`, `Collection_ID`, `Nickname`) VALUES (?,?,?,?)");
+                    $stmt->execute(array($current_date_time, $current_date_time_plus_24_hours, $this->item_id, $this->user_id));
+                    echo "<script>if(confirm(\"You've successfully reserved this item\")) window.location.href='../my_reservations.php'</script>";
+                    $this->connection->commit();
+                } else if ($status === "Reserved") {
+                    echo "<script>if(confirm(\"This item is reserved\")) window.location.href='../my_reservations.php'</script>";
+                } else if ($status === "Borrowed") {
+                    echo "<script>if(confirm(\"This item is borrowed\")) window.location.href='../my_reservations.php'</script>";
+                } else {
+                    echo "<script>if(confirm(\"This item is unvailable\")) window.location.href='../my_reservations.php'</script>";
+                }
+            } catch (Exception $e) {
+                $this->connection->rollback();
+                echo "Error occurred: " . $e->getMessage();
             }
-        } catch (Exception $e) {
-            $this->connection->rollback();
-            echo "Error occurred: " . $e->getMessage();
-        }
-    }
-
-    public function deleteExpiredReservations()
-    {
-        $this->connect();
-        try {
-            $this->connection->beginTransaction();
-            $stmt = $this->connection->prepare("DELETE FROM `reservation` WHERE TIMESTAMPDIFF(SECOND, `Reservation_Date`, NOW()) > 20;");
-            $stmt->execute();
-            $this->connection->commit();
-        } catch (Exception $e) {
-            $this->connection->rollback();
-            echo "Error occurred: " . $e->getMessage();
-        }
+        else :
+            echo "<script>if(confirm(\"You can't reserve more than 3 Items.\")) window.location.href='../my_reservations.php'</script>";
+        endif;
     }
 }

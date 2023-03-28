@@ -18,7 +18,9 @@ if (isset($_POST['login'])) {
     session_start();
     if ($_SESSION['Admin'] == 1) {
         header('location: ../admin/admin_homepage.php');
-    } else {
+    } else if ($_SESSION['Admin'] == 0 && $_SESSION['Penalty_Count'] < 3) {
         header('location: ../index.php?error=none');
+    } else if ($_SESSION['Admin'] == 0  && $_SESSION['Penalty_Count'] >= 3) {
+        header('location: ../account_banned.php');
     }
 }

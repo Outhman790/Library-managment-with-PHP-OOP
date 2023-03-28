@@ -2,16 +2,20 @@
 require_once('dbConnect.class.php');
 class Library extends dbConnect
 {
-    public function getItems()
+    public function getItems($offset, $limit)
     {
         try {
             $this->connect();
-            $statement = $this->connection->query('SELECT * FROM collection join types ON collection.Type_ID = types.Type_ID; ');
+            $statement = $this->connection->prepare('SELECT * FROM collection join types ON collection.Type_ID = types.Type_ID LIMIT ?, ?;');
+            $statement->bindValue(1, (int) $offset, PDO::PARAM_INT);
+            $statement->bindValue(2, (int) $limit, PDO::PARAM_INT);
+            $statement->execute();
             return $statement->fetchAll();
         } catch (PDOException $e) {
             throw new Exception('Error getting Items: ' . $e->getMessage());
         }
     }
+
 
     public function addItem($title, $author, $state, $edition_date, $buy_date, $type, $cover_image)
     {
@@ -33,5 +37,17 @@ class Library extends dbConnect
         $connection = $this->connect();
         $statement = $connection->prepare('UPDATE collection SET Title = ?, Author_Name = ?, State = ?, Edition_Date = ?, Buy_Date = ?, Type_ID = ?, Cover_Image = ? WHERE Collection_ID = ?');
         $statement->execute([$title, $author, $state, $edition_date, $buy_date, $type, $cover_image['name'], $id]);
+    }
+    public function countItems()
+    {
+        try {
+            $this->connect();
+            $statement = $this->connection->prepare('SELECT COUNT(*) as total FROM collection');
+            $statement->execute();
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+            return $result['total'];
+        } catch (PDOException $e) {
+            throw new Exception('Error counting Items: ' . $e->getMessage());
+        }
     }
 }

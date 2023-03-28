@@ -35,12 +35,15 @@ class login extends dbConnect
                 header('location: ../index.php?error=usernotfound');
                 exit();
             }
-
+            if ($user[0]['Penalty_Count'] >= 3) {
+                header('location: ../account_banned.php');
+            }
             $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             session_start();
             $_SESSION['Nickname'] = $user[0]['Nickname'];
             $_SESSION['Admin'] = $user[0]['Admin'];
+            $_SESSION['Penalty_Count'] = $user[0]['Penalty_Count'];
             $stmt = null;
         }
     }

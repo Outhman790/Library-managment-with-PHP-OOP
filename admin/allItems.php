@@ -67,20 +67,6 @@ if (isset($_SESSION['Nickname'])) :
     </nav>
     <!-- Filter Items -->
     <div id="filter-items" class="d-flex justify-content-center mt-3">
-        <select name="type" id="items-type" class="mx-2">
-            <option value="2">CD</option>
-            <option value="1">Book</option>
-            <option value="5">Roman</option>
-            <option value="4">DVD</option>
-            <option value="6">magazine</option>
-        </select>
-        <select name="State" id="items-state" class="mx-2">
-            <option value="New">New</option>
-            <option value="Used">Used</option>
-            <option value="Pretty Used">Pretty Used</option>
-            <option value="torn">torn</option>
-        </select>
-        <button id="filter_btn" class="mx-2 px-2 btn btn-success">Filter</button>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">
             Add</button>
     </div>
@@ -152,7 +138,10 @@ if (isset($_SESSION['Nickname'])) :
                 <div class="row">
                     <?php
                         $ItemsObj = new Library();
-                        $allItems = $ItemsObj->getItems();
+                        $page = isset($_GET['page']) ? $_GET['page'] : 1;
+                        $limit = 4; // Number of items to be displayed per page
+                        $offset = ($page - 1) * $limit;
+                        $allItems = $ItemsObj->getItems($offset, $limit);
                         foreach ($allItems as $key => $value) :
                         ?>
                     <div class="col-lg-3 col-md-4 mb-4">
@@ -281,8 +270,33 @@ if (isset($_SESSION['Nickname'])) :
 
                     </div>
                     <?php endforeach; ?>
+
                 </div>
+                <?php
+                    $total_items = $ItemsObj->countItems();
+                    $total_pages = ceil($total_items / $limit);
+                    ?>
+                <nav>
+                    <ul class="pagination justify-content-center">
+                        <?php
+                            if ($page > 1) {
+                                echo '<li class="page-item"><a class="page-link" href="?page=' . ($page - 1) . '">&laquo; Previous</a></li>';
+                            }
+                            for ($i = 1; $i <= $total_pages; $i++) {
+                                if ($i == $page) {
+                                    echo '<li class="page-item active"><a class="page-link" href="#">' . $i . '</a></li>';
+                                } else {
+                                    echo '<li class="page-item"><a class="page-link" href="?page=' . $i . '">' . $i . '</a></li>';
+                                }
+                            }
+                            if ($page < $total_pages) {
+                                echo '<li class="page-item"><a class="page-link" href="?page=' . ($page + 1) . '">Next &raquo;</a></li>';
+                            }
+                            ?>
+                    </ul>
+                </nav>
             </section>
+
         </div>
     </section>
     <!-- Footer-->

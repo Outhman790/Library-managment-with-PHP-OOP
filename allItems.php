@@ -1,10 +1,12 @@
 <?php
 session_start();
-include("classes/dbConnect.class.php");
-include("classes/getItems.class.php");
-if (isset($_SESSION['Admin']) === 1) :
+require_once("classes/dbConnect.class.php");
+require_once("classes/crud.class.php");
+require_once 'classes/search.class.php';
+require_once 'functions/check_account.func.php';
+checkAccount($_SESSION['Penalty_Count']);
+if ($_SESSION['Admin'] === 0) :
 ?>
-
     <!DOCTYPE html>
     <html lang="en">
 
@@ -13,7 +15,7 @@ if (isset($_SESSION['Admin']) === 1) :
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Shop Homepage - Start Bootstrap Template</title>
+        <title>All items</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Bootstrap icons-->
@@ -34,35 +36,19 @@ if (isset($_SESSION['Admin']) === 1) :
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="#">Library logo</a>
+                <a class="navbar-brand ml-auto" href="index.php">Olibrary</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Homepage</a>
-                        </li>
-                    </ul>
+                <div class="collapse navbar-collapse d-flex justify-content-end " id="navbarSupportedContent" style="margin-left: auto;">
                     <div class="dropdown">
-                        <?php
-                        if ($_SESSION['Nickname']) :
-                        ?>
-                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                <?php echo $_SESSION['Nickname'] ?>
-                            </a>
-                        <?php
-                        else :
-                        ?>
-                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                Profile nickname
-                            </a>
-                        <?php
-                        endif;
-                        ?>
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <?php echo $_SESSION['Nickname'] ?>
+                        </a>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">My profile</a></li>
+                            <li><a class="dropdown-item" href="myProfile.php">My profile</a></li>
                             <li><a class="dropdown-item" href="my_reservations.php">My reservations</a></li>
+                            <li><a class="dropdown-item" href="my_borrowings.php">My Borrowings</a></li>
                             <li><a href="./includes/logout.inc.php" class="dropdown-item">Logout</a></li>
                         </ul>
                     </div>
@@ -73,82 +59,179 @@ if (isset($_SESSION['Admin']) === 1) :
         <header class="bg-dark py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Shop in style</h1>
+                    <h1 class="display-4 fw-bolder">Access the World of Books Online</h1>
                     <p class="lead fw-normal text-white-50 mb-0">
-                        With this shop homepage template
-                    </p>
+                        Explore the world through our shelves: borrow, read, learn, and grow! </p>
                 </div>
             </div>
         </header>
+        <div class="container">
+            <div class="row justify-content-center mt-5">
+                <div class="col-md-6">
+                    <form class="form-inline" action="" method="post">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search an item by title" name="search_value">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="submit" name="submit_search">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
         <!-- Section-->
-        <section class="py-5">
+        <section class="py-2">
             <div class="container px-4 px-lg-5 mt-5">
                 <!--Section: Content-->
                 <section class="text-center">
                     <h4 class="mb-5"><strong>Our Collection</strong></h4>
                     <div class="row">
                         <?php
-                        $ItemsObj = new Library();
-                        $allItems = $ItemsObj->getItems();
-                        foreach ($allItems as $key => $value) :
+                        if (isset($_POST['submit_search'])) :
+                            $searchValue = $_POST['search_value'];
+                            $searchObj = new Search();
+                            $searchValue = $searchObj->searchItem($searchValue);
+                            foreach ($searchValue as $key => $value) :
                         ?>
-                            <div class="col-lg-3 col-md-4 mb-4">
-                                <div class="card">
-                                    <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                                        <img src="img/<?php echo $value['Cover_Image'] ?>" class="img-fluid-custom mw-100" style="height: 23rem;" />
-                                    </div>
-                                    <div>
-                                        <h5 class="card-title mt-2"><?php echo $value['Title'] ?></h5>
-                                        <!-- Button for reserving ( modal ) -->
-                                        <button type="button" class="btn btn-primary my-2" data-bs-toggle="modal" data-bs-target="#reserveModal<?php echo $value['Collection_ID'] ?>">
-                                            Reserve
-                                        </button>
-                                        <!-- Reserve Modal -->
-                                        <div class="modal fade" id="reserveModal<?php echo $value['Collection_ID'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Reservation</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        Do you want to reserve this item ?
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                        <button type="button"> <a class="btn btn-primary" href="includes/reserveItem.inc.php?id=<?php echo $value['Collection_ID'] ?>">Reserve</a></button>
+                                <div class="col-lg-3 col-md-4 mb-4">
+                                    <div class="card">
+                                        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                                            <img src="img/<?php echo $value['Cover_Image'] ?>" class="img-fluid-custom mw-100" style="height: 23rem;" />
+                                        </div>
+                                        <div>
+                                            <h5 class="card-title mt-2"><?php echo $value['Title'] ?></h5>
+                                            <!-- Button for reserving ( modal ) -->
+                                            <button type="button" class="btn btn-primary my-2" data-bs-toggle="modal" data-bs-target="#reserveModal<?php echo $value['Collection_ID'] ?>">
+                                                Reserve
+                                            </button>
+                                            <!-- Reserve Modal -->
+                                            <div class="modal fade" id="reserveModal<?php echo $value['Collection_ID'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Reservation</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Do you want to reserve this item ?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                            <button type="button"> <a class="btn btn-primary" href="includes/reserveItem.inc.php?id=<?php echo $value['Collection_ID'] ?>">Reserve</a></button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <!-- End reserve Modal -->
-                                        <div class="d-flex justify-content-around">
-                                            <div>
-                                                <span class="mdi mdi-home"></span>
-                                                <p><?php echo $value['Type_Name'] ?></p>
-                                            </div>
-                                            <div>
-                                                <span class="mdi mdi-file-check"></span>
-                                                <p><?php echo $value['Status'] ?></p>
-                                            </div>
-                                            <div>
-                                                <span class="mdi mdi-book-open-variant"></span>
-                                                <p><?php echo $value['State'] ?></p>
+                                            <!-- End reserve Modal -->
+                                            <div class="d-flex justify-content-around">
+                                                <div>
+                                                    <span class="mdi mdi-home"></span>
+                                                    <p><?php echo $value['Type_Name'] ?></p>
+                                                </div>
+                                                <div>
+                                                    <span class="mdi mdi-file-check"></span>
+                                                    <p><?php echo $value['Status'] ?></p>
+                                                </div>
+                                                <div>
+                                                    <span class="mdi mdi-book-open-variant"></span>
+                                                    <p><?php echo $value['State'] ?></p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        <?php endforeach; ?>
+                            <?php endforeach; ?>
+                            <?php
+                        else :
+                            $ItemsObj = new Library();
+                            $page = isset($_GET['page']) ? $_GET['page'] : 1;
+                            $limit = 4;
+                            $offset = ($page - 1) * $limit;
+                            $allItems = $ItemsObj->getItems($offset, $limit);
+                            foreach ($allItems as $key => $value) :
+                            ?>
+                                <div class="col-lg-3 col-md-4 mb-4">
+                                    <div class="card">
+                                        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                                            <img src="img/<?php echo $value['Cover_Image'] ?>" class="img-fluid-custom mw-100" style="height: 23rem;" />
+                                        </div>
+                                        <div>
+                                            <h5 class="card-title mt-2"><?php echo $value['Title'] ?></h5>
+                                            <!-- Button for reserving ( modal ) -->
+                                            <button type="button" class="btn btn-primary my-2" data-bs-toggle="modal" data-bs-target="#reserveModal<?php echo $value['Collection_ID'] ?>">
+                                                Reserve
+                                            </button>
+                                            <!-- Reserve Modal -->
+                                            <div class="modal fade" id="reserveModal<?php echo $value['Collection_ID'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Reservation</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Do you want to reserve this item ?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                            <button type="button"> <a class="btn btn-primary" href="includes/reserveItem.inc.php?id=<?php echo $value['Collection_ID'] ?>">Reserve</a></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- End reserve Modal -->
+                                            <div class="d-flex justify-content-around">
+                                                <div>
+                                                    <span class="mdi mdi-home"></span>
+                                                    <p><?php echo $value['Type_Name'] ?></p>
+                                                </div>
+                                                <div>
+                                                    <span class="mdi mdi-file-check"></span>
+                                                    <p><?php echo $value['Status'] ?></p>
+                                                </div>
+                                                <div>
+                                                    <span class="mdi mdi-book-open-variant"></span>
+                                                    <p><?php echo $value['State'] ?></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php
+                            endforeach;
+                            $total_items = $ItemsObj->countItems();
+                            $total_pages = ceil($total_items / $limit);
+
+                            ?>
                     </div>
-                </section>
+
+                    <nav>
+                        <ul class="pagination justify-content-center">
+                        <?php
+                            if ($page > 1) {
+                                echo '<li class="page-item"><a class="page-link" href="?page=' . ($page - 1) . '">&laquo; Previous</a></li>';
+                            }
+                            for ($i = 1; $i <= $total_pages; $i++) {
+                                if ($i == $page) {
+                                    echo '<li class="page-item active"><a class="page-link" href="#">' . $i . '</a></li>';
+                                } else {
+                                    echo '<li class="page-item"><a class="page-link" href="?page=' . $i . '">' . $i . '</a></li>';
+                                }
+                            }
+                            if ($page < $total_pages) {
+                                echo '<li class="page-item"><a class="page-link" href="?page=' . ($page + 1) . '">Next &raquo;</a></li>';
+                            }
+                        endif;
+                        ?>
             </div>
+        </section>
+        </div>
         </section>
         <!-- Footer-->
         <footer class="py-5 bg-dark">
             <div class="container">
                 <p class="m-0 text-center text-white">
-                    Copyright &copy; Your Website 2022
+                    Copyright &copy; Your Website 2023
                 </p>
             </div>
         </footer>

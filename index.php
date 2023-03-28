@@ -1,5 +1,9 @@
 <?php
 session_start();
+require_once 'functions/check_account.func.php';
+if (isset($_SESSION['Nickname'])) {
+    checkAccount($_SESSION['Penalty_Count']);
+}
 ?>
 
 <!DOCTYPE html>
@@ -9,7 +13,7 @@ session_start();
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Material Design for Bootstrap</title>
+    <title>Homepage</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
     <!-- Google Fonts Roboto -->
@@ -33,7 +37,6 @@ session_start();
                 color: #fff !important;
             }
         </style>
-
         <!--Navbar-->
         <nav id="nav" class="navbar navbar-expand-md d-flex justify-content-between bg-dark">
             <div class="container-md nav-position">
@@ -70,7 +73,6 @@ session_start();
             </div>
         </nav>
         <!-- Navbar -->
-
         <!-- Sign up and Sign in Modal -->
         <div class="modal fade" id="sign-in-up" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">

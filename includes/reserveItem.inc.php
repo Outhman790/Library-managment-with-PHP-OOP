@@ -10,11 +10,3 @@ $item = new LibraryItemReservation($itemId, $_SESSION['Nickname']);
 
 // Attempt to reserve the item
 $reservationSuccessful = $item->reserveItem();
-// Delete reservation after 24 hours
-$deleteReservation = $item->deleteExpiredReservations();
-
-// if ($reservationSuccessful) {
-//     echo "Reservation successful!";
-// } else {
-//     echo "Reservation failed. Item not available.";
-// }

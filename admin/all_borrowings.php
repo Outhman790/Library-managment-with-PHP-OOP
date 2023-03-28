@@ -57,7 +57,6 @@ if (isset($_SESSION['Nickname'])) :
                             <li><a class="dropdown-item" href="all_reservations.php">Reservations</a></li>
                             <li><a class="dropdown-item" href="#">Borrowings</a></li>
                             <li><a class="dropdown-item" href="../includes/logout.inc.php">Logout</a></li>
-
                         </ul>
                     </div>
                 </div>
@@ -68,11 +67,14 @@ if (isset($_SESSION['Nickname'])) :
             <div class="container px-4 px-lg-5 mt-5">
                 <!--Section: Content-->
                 <section class="text-center">
-                    <h4 class="mb-5"><strong>All Reservations</strong></h4>
+                    <h4 class="mb-5"><strong>All Borrowings</strong></h4>
                     <div class="row">
                         <?php
+                        $page = isset($_GET['page']) ? $_GET['page'] : 1;
+                        $limit = 4;
+                        $offset = ($page - 1) * $limit;
                         $AllBorrowingsObj = new getAllBorrowings();
-                        $AllBorrowings = $AllReservationsObj->getAllBorrowings();
+                        $AllBorrowings = $AllBorrowingsObj->getAllBorrowings($page, $limit);
                         foreach ($AllBorrowings as $key => $value) :
                         ?>
                             <div class="col-lg-3 col-md-4 mb-4">
@@ -82,6 +84,18 @@ if (isset($_SESSION['Nickname'])) :
                                     </div>
                                     <div>
                                         <h5 class="card-title mt-2"><?php echo $value['Title'] ?></h5>
+                                        <div id="reservation_info">
+                                            <p class="m-0">Nickname: <?php echo $value['Nickname'] ?></p>
+                                            <p class="m-0 mb-1">CIN: <?php echo $value['CIN'] ?></p>
+                                        </div>
+                                        <form method="post" action="../includes/confirm_return.php">
+                                            <input type="hidden" name="id" value="<?php echo $value['Borrowing_ID'] ?>">
+                                            <input type="hidden" name="Nickname" value="<?php echo $value['Nickname'] ?>">
+                                            <input type="hidden" name="collection_id" value="<?php echo $value['Collection_ID'] ?>">
+                                            <button type="submit" class="btn btn-primary my-2">
+                                                Confirm return
+                                            </button>
+                                        </form>
                                         <div class="d-flex justify-content-around">
                                             <div>
                                                 <span class="mdi mdi-home"></span>
@@ -101,6 +115,29 @@ if (isset($_SESSION['Nickname'])) :
                             </div>
                         <?php endforeach; ?>
                     </div>
+                    <?php
+                    $total_items = $AllBorrowingsObj->countItems();
+                    $total_pages = ceil($total_items / $limit);
+                    ?>
+                    <nav>
+                        <ul class="pagination justify-content-center">
+                            <?php
+                            if ($page > 1) {
+                                echo '<li class="page-item"><a class="page-link" href="?page=' . ($page - 1) . '">&laquo; Previous</a></li>';
+                            }
+                            for ($i = 1; $i <= $total_pages; $i++) {
+                                if ($i == $page) {
+                                    echo '<li class="page-item active"><a class="page-link" href="#">' . $i . '</a></li>';
+                                } else {
+                                    echo '<li class="page-item"><a class="page-link" href="?page=' . $i . '">' . $i . '</a></li>';
+                                }
+                            }
+                            if ($page < $total_pages) {
+                                echo '<li class="page-item"><a class="page-link" href="?page=' . ($page + 1) . '">Next &raquo;</a></li>';
+                            }
+                            ?>
+                        </ul>
+                    </nav>
                 </section>
             </div>
         </section>

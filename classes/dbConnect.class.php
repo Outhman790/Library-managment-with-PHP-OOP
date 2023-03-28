@@ -7,7 +7,7 @@ class dbConnect
     protected $username = 'root';
     protected $Password = '';
 
-    protected function connect()
+    public function connect()
     {
         $dsn = "mysql:host={$this->host};dbname={$this->dbname}";
         $options = [
