@@ -4,8 +4,8 @@ class dbConnect
     protected $connection;
     protected $host = 'localhost';
     protected $dbname = 'library';
-    protected $username = 'root';
-    protected $Password = '';
+    protected $username = 'outhman790';
+    protected $Password = 'outhman790..!!';
 
     public function connect()
     {
