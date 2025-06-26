@@ -28,19 +28,21 @@ if (isset($_SESSION['Nickname'])) {
     <!--Main Navigation-->
     <header>
         <style>
-            #intro {
-                background-image: url("img/gabriel-sollmann-Y7d265_7i08-unsplash.jpg");
-                height: 70vh;
-            }
+        #intro {
+            background-image: url("img/gabriel-sollmann-Y7d265_7i08-unsplash.jpg");
+            height: 70vh;
+        }
 
-            .navbar .nav-link {
-                color: #fff !important;
-            }
+        .navbar .nav-link {
+            color: #fff !important;
+        }
         </style>
         <!--Navbar-->
         <nav id="nav" class="navbar navbar-expand-md d-flex justify-content-between bg-dark">
             <div class="container-md nav-position">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                    aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -60,13 +62,13 @@ if (isset($_SESSION['Nickname'])) {
                     <ul class="navbar-nav">
                         <!-- diplay nav to connect -->
                         <?php if (isset($_SESSION['Nickname']) && $_SESSION['Nickname']) { ?>
-                            <button type="button" class="btn btn-light">
-                                <a href="./includes/logout.inc.php">Logout</a>
-                            </button>
+                        <button type="button" class="btn btn-light">
+                            <a href="./includes/logout.inc.php">Logout</a>
+                        </button>
                         <?php } else { ?>
-                            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#sign-in-up">
-                                Connect
-                            </button>
+                        <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#sign-in-up">
+                            Connect
+                        </button>
                         <?php } ?>
                     </ul>
                 </div>
@@ -92,7 +94,7 @@ if (isset($_SESSION['Nickname'])) {
                                     <div class="slider-tab"></div>
                                 </div>
                                 <div class="form-inner">
-                                    <form action="./includes/login.inc.php" class="login" method="POST">
+                                    <form id="loginForm" action="./includes/login.inc.php" class="login" method="POST">
                                         <div class="field">
                                             <input type="text" name="nickName" placeholder="Nickname" required />
                                         </div>
@@ -111,7 +113,8 @@ if (isset($_SESSION['Nickname'])) {
                                         </div>
                                     </form>
 
-                                    <form action="./includes/signup.inc.php" class="signup" method="POST">
+                                    <form id="signupForm" action="./includes/signup.inc.php" class="signup"
+                                        method="POST">
                                         <div class="field">
                                             <input type="text" name="nickName" placeholder="Nickname" required />
                                         </div>
@@ -138,7 +141,8 @@ if (isset($_SESSION['Nickname'])) {
                                             <input type="password" name="password" placeholder="Password" required />
                                         </div>
                                         <div class="field">
-                                            <input type="password" name="repeatPassword" placeholder="Confirm password" required />
+                                            <input type="password" name="repeatPassword" placeholder="Confirm password"
+                                                required />
                                         </div>
                                         <div class="field">
                                             <input type="number" name="phone" placeholder="Phone" required />
@@ -167,8 +171,10 @@ if (isset($_SESSION['Nickname'])) {
                             Our goal is to make free education resources available for
                             everyone
                         </h5>
-                        <a class="btn btn-outline-light btn-lg m-2" href="allItems.php" role="button" rel="nofollow">Take a reservation</a>
-                        <a class="btn btn-outline-light btn-lg m-2" href="https://mdbootstrap.com/docs/standard/" target="_blank" role="button">About us</a>
+                        <a class="btn btn-outline-light btn-lg m-2" href="allItems.php" role="button"
+                            rel="nofollow">Take a reservation</a>
+                        <a class="btn btn-outline-light btn-lg m-2" href="https://mdbootstrap.com/docs/standard/"
+                            target="_blank" role="button">About us</a>
                     </div>
                 </div>
             </div>
@@ -241,7 +247,8 @@ if (isset($_SESSION['Nickname'])) {
                     <div class="col-lg-3 col-md-4 mb-4">
                         <div class="card">
                             <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                                <img src="img/design-for-writers-book-cover-tf-2-a-million-to-one.jpg" class="img-fluid-custom" />
+                                <img src="img/design-for-writers-book-cover-tf-2-a-million-to-one.jpg"
+                                    class="img-fluid-custom" />
                                 <a href="#!">
                                     <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
                                 </a>
@@ -312,23 +319,29 @@ if (isset($_SESSION['Nickname'])) {
         </div>
         <!-- Copyright -->
     </footer>
-    <!-- The Modal -->
-    <div id="loginError" class="modal">
-
-        <!-- Modal content -->
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <p>Test</p>
+    <!-- Error Modal -->
+    <div class="modal fade" id="loginError" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title text-danger">Error</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="errorMessage" class="mb-0"></p>
+                </div>
+            </div>
         </div>
-
     </div>
 
     <!--Footer-->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous">
+    </script>
     <script src="js/script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous">
-    </script>
 </body>
 
 </html>
