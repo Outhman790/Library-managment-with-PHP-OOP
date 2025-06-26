@@ -186,3 +186,13 @@ form .btn input[type="submit"] {
 .zindex1 {
   z-index: 1;
 }
+#loginError .modal-content {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+}
+
+#loginError .modal-title,
+#loginError #errorMessage {
+  color: #dc3545;
+}
