@@ -20,7 +20,7 @@ class signUp extends dbConnect
             header("location: ../index.php?error=stmtfailed");
             exit();
         }
-        $count = $stmt->fetchColumn();
+        $count = $stmt->rowCount();
         return ($count > 0);
     }
 }
