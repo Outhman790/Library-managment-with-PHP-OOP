@@ -37,8 +37,16 @@ class signUpContr extends signUp
             echo "<script>confirm(\"Invalid Email\");</script>";
             exit();
         }
+        if ($this->isStrongPassword() === false) {
+            echo "<script>confirm(\"Password must be at least 8 characters and include upper, lower and numbers\");</script>";
+            exit();
+        }
         if ($this->validatePassword() === false) {
             echo "<script>confirm(\"Passwords doesn't match\");</script>";
+            exit();
+        }
+        if ($this->isMoroccanPhoneNumber() === false) {
+            echo "<script>confirm(\"Invalid phone number\");</script>";
             exit();
         }
         if ($this->checkUserAvailability() === false) {
@@ -49,8 +57,7 @@ class signUpContr extends signUp
     }
     private function emptyInput()
     {
-        if (empty($this->nickName) || empty($this->email) || empty($this->CIN) || empty($this->address) || empty($this->occupation) || empty($this->occupation) || empty($this->password) || empty($this->repeatPassword) || empty($this->phone)) return false;
-        return true;
+        if (empty($this->nickName) || empty($this->email) || empty($this->CIN) || empty($this->address) || empty($this->occupation) || empty($this->birthDate) || empty($this->password) || empty($this->repeatPassword) || empty($this->phone)) return false;
     }
     private function isValidNickname()
     {
@@ -68,6 +75,11 @@ class signUpContr extends signUp
     {
         if (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) return false;
         return true;
+    }
+    private function isStrongPassword()
+    {
+        $pattern = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/';
+        return preg_match($pattern, $this->password) === 1;
     }
     public function validatePassword()
     {
