@@ -28,14 +28,14 @@ if (isset($_SESSION['Nickname'])) {
     <!--Main Navigation-->
     <header>
         <style>
-        #intro {
-            background-image: url("img/gabriel-sollmann-Y7d265_7i08-unsplash.jpg");
-            height: 70vh;
-        }
+            #intro {
+                background-image: url("img/gabriel-sollmann-Y7d265_7i08-unsplash.jpg");
+                height: 70vh;
+            }
 
-        .navbar .nav-link {
-            color: #fff !important;
-        }
+            .navbar .nav-link {
+                color: #fff !important;
+            }
         </style>
         <!--Navbar-->
         <nav id="nav" class="navbar navbar-expand-md d-flex justify-content-between bg-dark">
@@ -62,13 +62,13 @@ if (isset($_SESSION['Nickname'])) {
                     <ul class="navbar-nav">
                         <!-- diplay nav to connect -->
                         <?php if (isset($_SESSION['Nickname']) && $_SESSION['Nickname']) { ?>
-                        <button type="button" class="btn btn-light">
-                            <a href="./includes/logout.inc.php">Logout</a>
-                        </button>
+                            <button type="button" class="btn btn-light">
+                                <a href="./includes/logout.inc.php">Logout</a>
+                            </button>
                         <?php } else { ?>
-                        <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#sign-in-up">
-                            Connect
-                        </button>
+                            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#sign-in-up">
+                                Connect
+                            </button>
                         <?php } ?>
                     </ul>
                 </div>
@@ -173,8 +173,7 @@ if (isset($_SESSION['Nickname'])) {
                         </h5>
                         <a class="btn btn-outline-light btn-lg m-2" href="allItems.php" role="button"
                             rel="nofollow">Take a reservation</a>
-                        <a class="btn btn-outline-light btn-lg m-2" href="https://mdbootstrap.com/docs/standard/"
-                            target="_blank" role="button">About us</a>
+                        <a class="btn btn-outline-light btn-lg m-2" href="#why-use-olibrary" role="button">About us</a>
                     </div>
                 </div>
             </div>
@@ -187,7 +186,7 @@ if (isset($_SESSION['Nickname'])) {
     <main class="mt-5">
         <div class="container">
             <!--Section: Content-->
-            <section>
+            <section id="why-use-olibrary" class="pt-5">
                 <div class="row">
                     <div class="col-md-6 gx-5 mb-4">
                         <div class="bg-image hover-overlay ripple shadow-2-strong" data-mdb-ripple-color="light">
