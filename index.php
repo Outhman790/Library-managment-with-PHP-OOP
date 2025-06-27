@@ -199,19 +199,15 @@ if (isset($_SESSION['Nickname'])) {
                     </div>
 
                     <div class="col-md-6 gx-5 mb-4">
-                        <h4><strong>Facilis consequatur eligendi</strong></h4>
+                        <h4><strong>Why use Olibrary?</strong></h4>
                         <p class="text-muted">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis
-                            consequatur eligendi quisquam doloremque vero ex debitis
-                            veritatis placeat unde animi laborum sapiente illo possimus,
-                            commodi dignissimos obcaecati illum maiores corporis.
+                            Browse thousands of titles and manage your reservations from anywhere. Reserve your next
+                            book online and pick it up within 24 hours.
                         </p>
-                        <p><strong>Doloremque vero ex debitis veritatis?</strong></p>
+                        <p><strong>Looking for your next read?</strong></p>
                         <p class="text-muted">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod
-                            itaque voluptate nesciunt laborum incidunt. Officia, quam
-                            consectetur. Earum eligendi aliquam illum alias, unde optio
-                            accusantium soluta, iusto molestiae adipisci et?
+                            Use our search and filter tools to explore new titles. You can borrow up to three items at a
+                            time and keep them for 15 days.
                         </p>
                     </div>
                 </div>
@@ -222,7 +218,7 @@ if (isset($_SESSION['Nickname'])) {
 
             <!--Section: Content-->
             <section class="text-center">
-                <h4 class="mb-5"><strong>You migh like</strong></h4>
+                <h4 class="mb-5"><strong>You might like</strong></h4>
 
                 <div class="row">
                     <div class="col-lg-3 col-md-4 mb-4">
@@ -234,12 +230,11 @@ if (isset($_SESSION['Nickname'])) {
                                 </a>
                             </div>
                             <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
+                                <h5 class="card-title">The Compound Effect</h5>
                                 <p class="card-text">
-                                    Some quick example text to build on the card title and make
-                                    up the bulk of the card's content.
+                                    Learn how small actions build success with this motivational read.
                                 </p>
-                                <a href="#!" class="btn btn-primary">Button</a>
+                                <a href="#!" class="btn btn-primary">Reserve</a>
                             </div>
                         </div>
                     </div>
@@ -254,12 +249,11 @@ if (isset($_SESSION['Nickname'])) {
                                 </a>
                             </div>
                             <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
+                                <h5 class="card-title">A Million to One</h5>
                                 <p class="card-text">
-                                    Some quick example text to build on the card title and make
-                                    up the bulk of the card's content.
+                                    An inspiring story of perseverance and creativity.
                                 </p>
-                                <a href="#!" class="btn btn-primary">Button</a>
+                                <a href="#!" class="btn btn-primary">Reserve</a>
                             </div>
                         </div>
                     </div>
@@ -273,12 +267,11 @@ if (isset($_SESSION['Nickname'])) {
                                 </a>
                             </div>
                             <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
+                                <h5 class="card-title">Atomic Habits</h5>
                                 <p class="card-text">
-                                    Some quick example text to build on the card title and make
-                                    up the bulk of the card's content.
+                                    James Clear's guide to building good habits that last.
                                 </p>
-                                <a href="#!" class="btn btn-primary">Button</a>
+                                <a href="#!" class="btn btn-primary">Reserve</a>
                             </div>
                         </div>
                     </div>
@@ -286,18 +279,17 @@ if (isset($_SESSION['Nickname'])) {
                     <div class="col-lg-3 col-md-4 mb-4">
                         <div class="card">
                             <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                                <img src="img/0735211299.01._SCLZZZZZZZ_SX500_.jpg" class="img-fluid-custom" />
+                                <img src="img/RichDad_PoorDad.webp" class="img-fluid-custom" />
                                 <a href="#!">
                                     <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
                                 </a>
                             </div>
                             <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
+                                <h5 class="card-title">Rich Dad Poor Dad</h5>
                                 <p class="card-text">
-                                    Some quick example text to build on the card title and make
-                                    up the bulk of the card's content.
+                                    Understand personal finance through this classic bestseller.
                                 </p>
-                                <a href="#!" class="btn btn-primary">Button</a>
+                                <a href="#!" class="btn btn-primary">Reserve</a>
                             </div>
                         </div>
                     </div>
