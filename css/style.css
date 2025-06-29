@@ -196,3 +196,8 @@ form .btn input[type="submit"] {
 #loginError #errorMessage {
   color: #dc3545;
 }
+.fit-img {
+  display: inline-block; /* or inline-flex */
+  width: fit-content;
+  height: fit-content;
+}
