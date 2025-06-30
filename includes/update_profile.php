@@ -14,9 +14,13 @@ if (isset($_POST['update_profile'])) {
 
     $profileObj = new profile();
     $updateProfile = $profileObj->updateProfile($Nickname, $Password, $Address, $Email, $Phone, $CIN, $Occupation, $Birth_Date, $_SESSION['Nickname']);
-    if ($updateProfile > 0) :
-        echo "<script>confirm(\"Profile updated Successfully\");</script>";
-    else :
-        echo "<script>confirm(\"Profile didn't update Successufully\");</script>";
-    endif;
+    if ($updateProfile > 0) {
+        // Redirect back to the profile page with a success flag
+        header('Location: ../myProfile.php?update=success');
+    } else {
+        // Redirect back to the profile page with an error flag
+        header('Location: ../myProfile.php?update=failed');
+    }
+
+    exit();
 }
