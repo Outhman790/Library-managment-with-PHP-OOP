@@ -20,6 +20,7 @@ if (isset($_POST['signUp'])) {
     // running error handler and user signup
     $signup->signUpUser();
 
-    // Going back to front page
-    header('location: ../index.php?error=none');
+    // Redirect back with success query parameter
+    header('location: ../index.php?signup=success');
+    exit();
 }
