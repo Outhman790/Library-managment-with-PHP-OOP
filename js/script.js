@@ -7,6 +7,11 @@ const signupForm = document.querySelector("#signupForm");
 const modal = document.getElementById("loginError");
 const modalMsg = document.getElementById("errorMessage");
 const bsModal = modal ? new bootstrap.Modal(modal) : null;
+const successModalEl = document.getElementById("signupSuccess");
+const successMsg = document.getElementById("successMessage");
+const bsSuccessModal = successModalEl
+  ? new bootstrap.Modal(successModalEl)
+  : null;
 const formWrapper = document.querySelector(".wrapper");
 formWrapper.style.height = "31rem";
 signupBtn.onclick = () => {
@@ -31,7 +36,11 @@ function showModal(message) {
   }
   bsModal.show();
 }
-
+function showSuccess(message) {
+  if (!bsSuccessModal) return;
+  successMsg.textContent = message || "";
+  bsSuccessModal.show();
+}
 function getParameterByName(name) {
   name = name.replace(/[\[\]]/g, "\\$&");
   const url = window.location.href;
@@ -42,12 +51,17 @@ function getParameterByName(name) {
   return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-if (getParameterByName("error") === "usernotfound") {
-  console.log("working");
-  // Show the modal
-  showModal();
-}
+document.addEventListener("DOMContentLoaded", () => {
+  if (getParameterByName("error") === "usernotfound") {
+    console.log("working");
+    // Show the modal
+    showModal();
+  }
 
+  if (getParameterByName("signup") === "success") {
+    showSuccess("User sign up successfully");
+  }
+});
 if (loginForm) {
   loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -92,10 +106,24 @@ if (signupForm) {
         window.location.href = resp.url;
         return;
       }
-      const text = await resp.text();
-      const match = text.match(/confirm\("(.+?)"\)/);
-      const msg = match ? match[1] : "Signup failed";
-      showModal(msg);
+      const contentType = resp.headers.get("Content-Type") || "";
+      if (contentType.includes("application/json")) {
+        const data = await resp.json();
+        if (data.status === "success") {
+          showSuccess(data.message);
+        } else {
+          showModal(data.message || "Signup failed");
+        }
+      } else {
+        const text = await resp.text();
+        const match = text.match(/confirm\("(.+?)"\)/);
+        const msg = match ? match[1] : "Signup failed";
+        if (msg.toLowerCase().includes("success")) {
+          showSuccess(msg);
+        } else {
+          showModal(msg);
+        }
+      }
     } catch (err) {
       showModal("Signup failed");
     }
