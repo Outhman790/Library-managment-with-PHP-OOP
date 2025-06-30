@@ -47,13 +47,12 @@ if (isset($_SESSION['Nickname'])) {
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                    <a class="navbar-brand text-light fs-3 d-none d-md-block" href="homepage.php">Navbar</a>
-                    <ul class="navbar-nav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="homepage.php">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Services</a>
+                            <a class="navbar-brand" href="index.php">
+                                <img src="img/Olibrary_logo_white.png" alt="Library logo" class="w-auto"
+                                    style="height: 40px;">
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -101,9 +100,7 @@ if (isset($_SESSION['Nickname'])) {
                                         <div class="field">
                                             <input type="password" name="password" placeholder="Password" required />
                                         </div>
-                                        <div class="pass-link">
-                                            <a href="#">Forgot password?</a>
-                                        </div>
+
                                         <div class="field btn p-0">
                                             <div class="btn-layer"></div>
                                             <input type="submit" name="login" value="Login" />
@@ -320,6 +317,20 @@ if (isset($_SESSION['Nickname'])) {
                 </div>
                 <div class="modal-body">
                     <p id="errorMessage" class="mb-0"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Success Modal -->
+    <div class="modal fade" id="signupSuccess" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title text-success">Success</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="successMessage" class="mb-0"></p>
                 </div>
             </div>
         </div>
