@@ -201,3 +201,13 @@ form .btn input[type="submit"] {
   width: fit-content;
   height: fit-content;
 }
+#signupSuccess .modal-content {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+}
+
+#signupSuccess .modal-title,
+#signupSuccess #successMessage {
+  color: #28a745;
+}
