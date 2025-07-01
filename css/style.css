@@ -211,3 +211,8 @@ form .btn input[type="submit"] {
 #signupSuccess #successMessage {
   color: #28a745;
 }
+#profileUpdateModal .modal-content {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+}
