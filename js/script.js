@@ -12,22 +12,41 @@ const successMsg = document.getElementById("successMessage");
 const bsSuccessModal = successModalEl
   ? new bootstrap.Modal(successModalEl)
   : null;
+const updateModalEl = document.getElementById("profileUpdateModal");
+const updateMsg = document.getElementById("updateMessage");
+const updateTitle = document.getElementById("updateTitle");
+let bsUpdateModal = null;
+if (updateModalEl) {
+  if (typeof bootstrap !== "undefined" && bootstrap.Modal) {
+    bsUpdateModal = new bootstrap.Modal(updateModalEl);
+  } else if (typeof $ !== "undefined" && $(updateModalEl).modal) {
+    bsUpdateModal = { show: () => $(updateModalEl).modal("show") };
+  }
+}
 const formWrapper = document.querySelector(".wrapper");
-formWrapper.style.height = "31rem";
-signupBtn.onclick = () => {
-  loginForm.style.marginLeft = "-50%";
-  loginText.style.marginLeft = "-50%";
-  formWrapper.style.height = "fit-content";
-};
-loginBtn.onclick = () => {
-  loginForm.style.marginLeft = "0%";
-  loginText.style.marginLeft = "0%";
+if (formWrapper) {
   formWrapper.style.height = "31rem";
-};
-signupLink.onclick = () => {
-  signupBtn.click();
-  return false;
-};
+}
+if (signupBtn && loginForm && loginText && formWrapper) {
+  signupBtn.onclick = () => {
+    loginForm.style.marginLeft = "-50%";
+    loginText.style.marginLeft = "-50%";
+    formWrapper.style.height = "fit-content";
+  };
+}
+if (loginBtn && loginForm && loginText && formWrapper) {
+  loginBtn.onclick = () => {
+    loginForm.style.marginLeft = "0%";
+    loginText.style.marginLeft = "0%";
+    formWrapper.style.height = "31rem";
+  };
+}
+if (signupLink && signupBtn) {
+  signupLink.onclick = () => {
+    signupBtn.click();
+    return false;
+  };
+}
 // Query parameters
 function showModal(message) {
   if (!bsModal) return;
@@ -41,6 +60,19 @@ function showSuccess(message) {
   successMsg.textContent = message || "";
   bsSuccessModal.show();
 }
+function showUpdateStatus(status) {
+  if (!bsUpdateModal) return;
+  if (status === "success") {
+    updateMsg.textContent = "Profile updated successfully";
+    updateMsg.classList.add("text-success");
+    updateTitle.classList.add("text-success");
+  } else if (status === "failed") {
+    updateMsg.textContent = "Failed to update profile";
+    updateMsg.classList.add("text-danger");
+    updateTitle.classList.add("text-danger");
+  }
+  bsUpdateModal.show();
+}
 function getParameterByName(name) {
   name = name.replace(/[\[\]]/g, "\\$&");
   const url = window.location.href;
@@ -51,17 +83,23 @@ function getParameterByName(name) {
   return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  if (getParameterByName("error") === "usernotfound") {
-    console.log("working");
-    // Show the modal
-    showModal();
-  }
+// Check URL parameters on load. Since this script is included at the end of the
+// HTML, the DOM is already parsed and we don't need to wait for the
+// `DOMContentLoaded` event. Previously the code relied on that event which never
+// fired for this script, preventing the success/error modals from showing after
+// a redirect.
+if (getParameterByName("error") === "usernotfound") {
+  // Show the error modal
+  showModal();
+}
 
-  if (getParameterByName("signup") === "success") {
-    showSuccess("User sign up successfully");
-  }
-});
+if (getParameterByName("signup") === "success") {
+  showSuccess("User sign up successfully");
+}
+const updateStatus = getParameterByName("update");
+if (updateStatus === "success" || updateStatus === "failed") {
+  showUpdateStatus(updateStatus);
+}
 if (loginForm) {
   loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
