@@ -105,10 +105,28 @@ if (isset($_SESSION['Nickname'])) :
             </form>
 
         </div>
+        <!-- Update Profile Modal -->
+        <div class="modal fade" id="profileUpdateModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header border-0">
+                        <h5 class="modal-title" id="updateTitle">Update</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="updateMessage" class="mb-0"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Update Profile Modal -->
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="js/script.js"></script>
     </body>
 
     </html>
