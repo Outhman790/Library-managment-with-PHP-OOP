@@ -27,7 +27,7 @@ class getAllBorrowings extends dbConnect
     {
         try {
             $this->connect();
-            $statement = $this->connection->prepare('SELECT COUNT(*) as total FROM borrowings');
+            $statement = $this->connection->prepare('SELECT COUNT(*) as total FROM borrowings WHERE Status = "Borrowed"');
             $statement->execute();
             $result = $statement->fetch(PDO::FETCH_ASSOC);
             return $result['total'];
