@@ -51,7 +51,8 @@ if (isset($_SESSION['Nickname'])) :
                         <li class="nav-item"><a class="nav-link" href="users.php">Users</a></li>
                         <li class="nav-item"><a class="nav-link" href="all_reservations.php">Reservations</a></li>
                         <li class="nav-item"><a class="nav-link" href="all_borrowings.php">Borrow History</a></li>
-                        <li class="nav-item"><a class="nav-link text-danger" href="../logout.php">Logout</a></li>
+                        <li class="nav-item"><a class="nav-link text-danger" href="../includes/logout.inc.php">Logout</a>
+                        </li>
                     </ul>
                 </div>
             </div>
