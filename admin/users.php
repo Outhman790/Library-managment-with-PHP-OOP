@@ -17,12 +17,19 @@ include("../includes/get_all_users.php"); // Updated path if moved to /includes
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
     <style>
         body {
-            background: linear-gradient(to right, #1c92d2, #f2fcfe);
+            background: linear-gradient(to right, #1f4037, #99f2c8);
+            color: white;
+            min-height: 100vh;
         }
 
         .card {
+            border: none;
             border-radius: 1rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .card:hover {
+            transform: scale(1.03);
+            transition: all 0.3s ease-in-out;
         }
 
         table {
@@ -57,7 +64,8 @@ include("../includes/get_all_users.php"); // Updated path if moved to /includes
                     <li class="nav-item"><a class="nav-link" href="users.php">Users</a></li>
                     <li class="nav-item"><a class="nav-link" href="all_reservations.php">Reservations</a></li>
                     <li class="nav-item"><a class="nav-link" href="all_borrowings.php">Borrow History</a></li>
-                    <li class="nav-item"><a class="nav-link text-danger" href="../logout.php">Logout</a></li>
+                    <li class="nav-item"><a class="nav-link text-danger" href="../includes/logout.inc.php">Logout</a>
+                    </li>
                 </ul>
             </div>
         </div>
