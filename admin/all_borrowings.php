@@ -27,37 +27,30 @@ if (isset($_SESSION['Nickname'])) :
 
     <body class="d-flex flex-column min-vh-100">
         <!-- Navigation-->
+
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
+                <a class="navbar-brand" href="admin_homepage.php">
+                    <img src="../img/Olibrary_logo.png" alt="Library logo" style="height: 40px;">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item">
-                            <a class="navbar-brand" href="index.php">
-                                <img src="../img/Olibrary_logo.png" alt="Library logo" class="w-auto" style="height: 40px;">
-                            </a>
-                        </li>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item"><a class="nav-link" href="admin_homepage.php">Dashboard</a></li>
+                        <li class="nav-item"><a class="nav-link" href="allItems.php">Books</a></li>
+                        <li class="nav-item"><a class="nav-link" href="users.php">Users</a></li>
+                        <li class="nav-item"><a class="nav-link" href="all_reservations.php">Reservations</a></li>
+                        <li class="nav-item"><a class="nav-link" href="all_borrowings.php">Borrow History</a></li>
+                        <li class="nav-item"><a class="nav-link text-danger" href="../logout.php">Logout</a></li>
                     </ul>
-                    <div class="dropdown">
-                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <?php echo $_SESSION['Nickname'] ?>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">My profile</a></li>
-                            <li><a class="dropdown-item" href="allItems.php">All items</a></li>
-                            <li><a class="dropdown-item" href="all_reservations.php">Reservations</a></li>
-                            <li><a class="dropdown-item" href="#">Borrowings</a></li>
-                            <li><a class="dropdown-item" href="../includes/logout.inc.php">Logout</a></li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </nav>
+
+
 
         <!-- Page Content -->
         <div class="container px-4 px-lg-5 mt-5 flex-grow-1">
