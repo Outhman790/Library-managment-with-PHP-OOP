@@ -44,7 +44,8 @@ if (isset($_SESSION['Nickname'])) :
                         <li class="nav-item"><a class="nav-link" href="users.php">Users</a></li>
                         <li class="nav-item"><a class="nav-link" href="all_reservations.php">Reservations</a></li>
                         <li class="nav-item"><a class="nav-link" href="all_borrowings.php">Borrow History</a></li>
-                        <li class="nav-item"><a class="nav-link text-danger" href="../logout.php">Logout</a></li>
+                        <li class="nav-item"><a class="nav-link text-danger" href="../includes/logout.inc.php">Logout</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -126,10 +127,8 @@ if (isset($_SESSION['Nickname'])) :
         </div>
 
         <!-- Footer-->
-        <footer class="py-5 bg-dark mt-auto">
-            <div class="container">
-                <p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p>
-            </div>
+        <footer class="text-center mt-auto py-3 bg-dark">
+            <p class="mb-0 text-white-50">Olibrary - Admin Panel &copy; <?= date("Y") ?> </p>
         </footer>
     </body>
 
