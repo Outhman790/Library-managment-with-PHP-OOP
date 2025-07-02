@@ -25,38 +25,43 @@ class LibraryItemReservation extends dbConnect
     {
         $this->connect();
         $this->connection->beginTransaction();
-        $stmt = $this->connection->prepare("SELECT COUNT(Reservation_ID) AS num_reservations
-            FROM reservation;");
-        $stmt->execute();
-        $reservation_count = $stmt->fetchColumn();
-        if ($reservation_count < 3) :
+
+        $stmt = $this->connection->prepare("SELECT COUNT(*) FROM reservation WHERE Nickname = ? AND Reservation_Expiration_Date > NOW()");
+        $stmt->execute([$this->user_id]);
+        $user_reservation_count = $stmt->fetchColumn();
+
+        if ($user_reservation_count < 3) :
             try {
                 $stmt = $this->connection->prepare("SELECT STATUS FROM `collection` WHERE Collection_ID = ? ; ");
-                $stmt->execute(array($this->item_id));
+                $stmt->execute([$this->item_id]);
                 $status = $stmt->fetchColumn();
                 $stmt = null;
+
                 if ($status === "Available") {
                     $stmt = $this->connection->prepare("UPDATE `collection` SET `Status`='Reserved' WHERE Collection_ID = ? ;");
-                    $stmt->execute(array($this->item_id));
+                    $stmt->execute([$this->item_id]);
+
                     $current_date_time = date('Y-m-d H:i:s');
-                    $current_date_time_plus_24_hours = date('Y-m-d H:i:s', strtotime('+24 hours'));
-                    $stmt = $this->connection->prepare("INSERT INTO `reservation`(`Reservation_Date`, `Reservation_Expiration_Date`, `Collection_ID`, `Nickname`) VALUES (?,?,?,?)");
-                    $stmt->execute(array($current_date_time, $current_date_time_plus_24_hours, $this->item_id, $this->user_id));
-                    echo "<script>if(confirm(\"You've successfully reserved this item\")) window.location.href='../my_reservations.php'</script>";
+                    $expiration = date('Y-m-d H:i:s', strtotime('+24 hours'));
+
+                    $stmt = $this->connection->prepare("INSERT INTO `reservation`(`Reservation_Date`, `Reservation_Expiration_Date`, `Collection_ID`, `Nickname`) VALUES (?, ?, ?, ?)");
+                    $stmt->execute([$current_date_time, $expiration, $this->item_id, $this->user_id]);
+
                     $this->connection->commit();
+                    echo "<script>if(confirm(\"You've successfully reserved this item\")) window.location.href='../my_reservations.php'</script>";
                 } else if ($status === "Reserved") {
                     echo "<script>if(confirm(\"This item is reserved\")) window.location.href='../my_reservations.php'</script>";
                 } else if ($status === "Borrowed") {
                     echo "<script>if(confirm(\"This item is borrowed\")) window.location.href='../my_reservations.php'</script>";
                 } else {
-                    echo "<script>if(confirm(\"This item is unvailable\")) window.location.href='../my_reservations.php'</script>";
+                    echo "<script>if(confirm(\"This item is unavailable\")) window.location.href='../my_reservations.php'</script>";
                 }
             } catch (Exception $e) {
                 $this->connection->rollback();
                 echo "Error occurred: " . $e->getMessage();
             }
         else :
-            echo "<script>if(confirm(\"You can't reserve more than 3 Items.\")) window.location.href='../my_reservations.php'</script>";
+            echo "<script>if(confirm(\"You can't reserve more than 3 items at the same time.\")) window.location.href='../my_reservations.php'</script>";
         endif;
     }
 }
