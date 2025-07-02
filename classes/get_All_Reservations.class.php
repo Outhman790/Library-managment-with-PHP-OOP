@@ -20,7 +20,7 @@ class getAllReservations extends dbConnect
     {
         try {
             $this->connect();
-            $statement = $this->connection->prepare('SELECT COUNT(*) as total FROM reservation');
+            $statement = $this->connection->prepare('SELECT COUNT(*) as total FROM reservation r JOIN collection c ON r.Collection_ID = c.Collection_ID WHERE c.Status = "Reserved"');
             $statement->execute();
             $result = $statement->fetch(PDO::FETCH_ASSOC);
             return $result['total'];
