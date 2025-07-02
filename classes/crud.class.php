@@ -50,4 +50,29 @@ class Library extends dbConnect
             throw new Exception('Error counting Items: ' . $e->getMessage());
         }
     }
+    public function getAllUsers()
+    {
+        try {
+            $this->connect();
+            $stmt = $this->connection->prepare("SELECT * FROM client");
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            throw new Exception("Error fetching users: " . $e->getMessage());
+        }
+    }
+
+    public function getUsersPaginated($offset, $limit)
+    {
+        try {
+            $this->connect();
+            $stmt = $this->connection->prepare("SELECT Nickname, Address, Email, Phone, CIN, Occupation, Penalty_Count, Birth_Date, Creation_Date FROM client LIMIT :offset, :limit");
+            $stmt->bindValue(":offset", (int) $offset, PDO::PARAM_INT);
+            $stmt->bindValue(":limit", (int) $limit, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            throw new Exception("Error fetching paginated users: " . $e->getMessage());
+        }
+    }
 }
