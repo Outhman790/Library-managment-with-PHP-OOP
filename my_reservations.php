@@ -130,12 +130,8 @@ if ($_SESSION['Admin'] === 0) :
             </main>
 
             <!-- Footer -->
-            <footer class="py-5 bg-dark mt-auto">
-                <div class="container">
-                    <p class="m-0 text-center text-white">
-                        Copyright &copy; Your Website 2022
-                    </p>
-                </div>
+            <footer class="text-center mt-auto py-3 bg-dark">
+                <p class="mb-0 text-white-50">Olibrary &copy; <?= date("Y") ?> </p>
             </footer>
 
         </div>
