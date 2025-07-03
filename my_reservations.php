@@ -77,9 +77,9 @@ if ($_SESSION['Admin'] === 0) :
             <header class="bg-dark py-5">
                 <div class="container px-4 px-lg-5 my-5">
                     <div class="text-center text-white">
-                        <h1 class="display-4 fw-bolder">Access the World of Books Online</h1>
+                        <h1 class="display-4 fw-bolder">Your Reservations</h1>
                         <p class="lead fw-normal text-white-50 mb-0">
-                            Explore the world through our shelves: borrow, read, learn, and grow!
+                            Review the items you've reserved and prepare for your next read.
                         </p>
                     </div>
                 </div>
