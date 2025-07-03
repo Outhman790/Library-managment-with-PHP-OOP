@@ -255,12 +255,8 @@ if ($_SESSION['Admin'] === 0) :
         </div>
         </section>
         <!-- Footer-->
-        <footer class="py-5 bg-dark">
-            <div class="container">
-                <p class="m-0 text-center text-white">
-                    Copyright &copy; Your Website 2023
-                </p>
-            </div>
+        <footer class="text-center mt-auto py-3 bg-dark">
+            <p class="mb-0 text-white-50">Olibrary &copy; <?= date("Y") ?> </p>
         </footer>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="js/scripts.js"></script>
