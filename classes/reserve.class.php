@@ -26,12 +26,26 @@ class LibraryItemReservation extends dbConnect
         $this->connect();
         $this->connection->beginTransaction();
 
+        // Check how many active reservations the user has
         $stmt = $this->connection->prepare("SELECT COUNT(*) FROM reservation WHERE Nickname = ? AND Reservation_Expiration_Date > NOW()");
         $stmt->execute([$this->user_id]);
         $user_reservation_count = $stmt->fetchColumn();
 
         if ($user_reservation_count < 3) :
             try {
+                // Check if the item already has a non-expired reservation
+                $stmt = $this->connection->prepare("SELECT COUNT(*) FROM reservation WHERE Collection_ID = ? AND Reservation_Expiration_Date > NOW()");
+                $stmt->execute([$this->item_id]);
+                $item_reservation_count = $stmt->fetchColumn();
+                $stmt = null;
+
+                if ($item_reservation_count > 0) {
+                    // There is already an active reservation for this item
+                    echo "<script>if(confirm(\"This item is already reserved by another user.\")) window.location.href='../my_reservations.php'</script>";
+                    $this->connection->rollback();
+                    return;
+                }
+
                 $stmt = $this->connection->prepare("SELECT STATUS FROM `collection` WHERE Collection_ID = ? ; ");
                 $stmt->execute([$this->item_id]);
                 $status = $stmt->fetchColumn();
