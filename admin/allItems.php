@@ -60,9 +60,9 @@ if (isset($_SESSION['Nickname'])) :
 
 
         <!-- Filter Items -->
-        <div id="filter-items" class="d-flex justify-content-center mt-3">
+        <div id="filter-items" class="d-flex justify-content-center mt-5">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">
-                Add</button>
+                Add an Item</button>
         </div>
         <!-- Add item Modal -->
         <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -294,7 +294,7 @@ if (isset($_SESSION['Nickname'])) :
             </div>
         </section>
         <!-- Footer-->
-        <footer class="py-5 bg-dark">
+        <footer class="py-4 bg-dark">
             <div class="container">
                 <p class="m-0 text-center text-white">
                     Olibrary &copy; <?= date("Y") ?> | Admin Panel
