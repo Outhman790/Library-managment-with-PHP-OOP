@@ -299,13 +299,8 @@ if (isset($_SESSION['Nickname'])) {
     <!--Main layout-->
 
     <!--Footer-->
-    <footer class="bg-light text-lg-start">
-        <!-- Copyright -->
-        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
-            © 2023 Copyright:
-            <a class="text-dark" href="index.php">Olibrary.com</a>
-        </div>
-        <!-- Copyright -->
+    <footer class="text-center mt-auto py-3 bg-dark">
+        <p class="mb-0 text-white-50">Olibrary &copy; <?= date("Y") ?> </p>
     </footer>
     <!-- Error Modal -->
     <div class="modal fade" id="loginError" tabindex="-1" aria-hidden="true">
@@ -336,7 +331,6 @@ if (isset($_SESSION['Nickname'])) {
         </div>
     </div>
 
-    <!--Footer-->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
         integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous">
     </script>
