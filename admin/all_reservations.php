@@ -135,6 +135,9 @@ if (isset($_SESSION['Nickname'])) :
                                 <?php
                                 $total_items = $AllReservationsObj->countItems();
                                 $total_pages = ceil($total_items / $limit);
+                                
+                                // Only show pagination if there are multiple pages
+                                if ($total_pages > 1):
                                 ?>
                                 <nav>
                                     <ul class="pagination justify-content-center">
@@ -155,6 +158,7 @@ if (isset($_SESSION['Nickname'])) :
                                         ?>
                                     </ul>
                                 </nav>
+                                <?php endif; ?>
                             <?php else: ?>
                                 <p class="text-center">No reservations found.</p>
                             <?php endif; ?>
