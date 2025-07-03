@@ -57,10 +57,11 @@ if ($_SESSION['Admin'] === 0) :
                             <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                                 <?php echo $_SESSION['Nickname'] ?? 'Profile nickname'; ?>
                             </a>
-                            <ul class="dropdown-menu">
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <li><a class="dropdown-item" href="myProfile.php">My profile</a></li>
-                                <li><a class="dropdown-item" href="my_reservations.php">My reservations</a></li>
-                                <li><a class="dropdown-item" href="#">My borrowings</a></li>
+                                <a class="dropdown-item" href="allItems.php">All items</a>
+                                <li><a class="dropdown-item" href="#">My reservations</a></li>
+                                <li><a class="dropdown-item" href="my_borrowings.php">My Borrowings</a></li>
                                 <li><a href="./includes/logout.inc.php" class="dropdown-item">Logout</a></li>
                             </ul>
                         </div>
@@ -119,9 +120,8 @@ if ($_SESSION['Admin'] === 0) :
                     </div>
                 </section>
             </main>
-
-            <footer class="bg-dark text-white text-center py-4">
-                &copy; <?php echo date('Y'); ?> Your Website
+            <footer class="text-center mt-auto py-3 bg-dark">
+                <p class="mb-0 text-white-50">Olibrary &copy; <?= date("Y") ?> </p>
             </footer>
         </div>
 
