@@ -49,7 +49,7 @@ if ($_SESSION['Admin'] === 0) :
                     style="margin-left: auto;">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         <li class="nav-item">
-                            <a class="navbar-brand" href="admin_homepage.php">
+                            <a class="navbar-brand" href="index.php">
                                 <img src="img/Olibrary_logo.png" alt="Library logo" class="w-auto" style="height: 40px;">
                             </a>
                         </li>
