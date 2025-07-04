@@ -19,36 +19,23 @@ if (isset($_SESSION['Nickname'])) :
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
+                <a class="navbar-brand" href="index.php">
+                    <img src="img/Olibrary_logo.png" alt="Library logo" style="height: 40px;">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item">
-                            <a class="navbar-brand" href="index.php">
-                                <img src="img/Olibrary_logo.png" alt="Library logo" class="w-auto" style="height: 40px;">
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle btn btn-secondary text-white" href="#" id="navbarDropdown"
-                                role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <?php echo $_SESSION['Nickname'] ?>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">My profile</a>
-                                <a class="dropdown-item" href="allItems.php">All items</a>
-                                <a class="dropdown-item" href="my_reservations.php">My reservations</a>
-                                <a class="dropdown-item" href="my_borrowings.php">My borrowings</a>
-                                <a class="dropdown-item" href="./includes/logout.inc.php">Logout</a>
-                            </div>
-                        </li>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="allItems.php">All Items</a></li>
+                        <li class="nav-item"><a class="nav-link" href="my_reservations.php">My Reservations</a></li>
+                        <li class="nav-item"><a class="nav-link" href="my_borrowings.php">My Borrowings</a></li>
+                        <li class="nav-item"><a class="nav-link" href="myProfile.php">My Profile</a></li>
+                        <li class="nav-item"><a class="nav-link text-danger" href="./includes/logout.inc.php">Logout</a></li>
                     </ul>
                 </div>
-
             </div>
         </nav>
         <div class="container mt-5">
