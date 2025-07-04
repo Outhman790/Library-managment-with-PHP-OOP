@@ -25,7 +25,7 @@ if (isset($_SESSION['Nickname'])) :
     <script defer src="js/scripts.js"></script>
 </head>
 
-<body class="d-flex flex-column min-vh-100">
+<body class="d-flex flex-column min-vh-100 bg-light" style="background: linear-gradient(to right, #f0f7f4, #e3f2ed); color: #1a2e35;">
     <!-- Navigation-->
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -44,21 +44,18 @@ if (isset($_SESSION['Nickname'])) :
                     <li class="nav-item"><a class="nav-link" href="users.php">Users</a></li>
                     <li class="nav-item"><a class="nav-link" href="all_reservations.php">Reservations</a></li>
                     <li class="nav-item"><a class="nav-link" href="all_borrowings.php">Borrowings</a></li>
-                    <li  class="nav-item"><a class="nav-link" href="history.php">History</a></li>
-                    <li class="nav-item"><a class="nav-link text-danger" href="../includes/logout.inc.php">Logout</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" href="history.php">History</a></li>
+                    <li class="nav-item"><a class="nav-link text-danger" href="../includes/logout.inc.php">Logout</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-
-
     <!-- Page Content -->
     <div class="container px-4 px-lg-5 mt-5 flex-grow-1">
         <section class="text-center">
-            <h4 class="mb-5"><strong>All Borrowings</strong></h4>
-            <div class="row">
+            <h4 class="mb-5 text-dark border-bottom pb-2"><strong>All Borrowings</strong></h4>
+            <div class="row g-4">
                 <?php
                     $page = isset($_GET['page']) ? $_GET['page'] : 1;
                     $limit = 4;
@@ -68,16 +65,16 @@ if (isset($_SESSION['Nickname'])) :
                     foreach ($AllBorrowings as $key => $value) :
                     ?>
                 <div class="col-lg-3 col-md-4 mb-4">
-                    <div class="card">
-                        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                            <img src="../img/<?php echo $value['Cover_Image'] ?>" class="img-fluid-custom mw-100"
-                                style="height: 23rem;" />
+                    <div class="card shadow border-0 h-100">
+                        <div class="bg-image hover-overlay ripple">
+                            <img src="../img/<?php echo $value['Cover_Image'] ?>" class="img-fluid mw-100 rounded-top"
+                                style="height: 23rem; object-fit:cover;" />
                         </div>
-                        <div>
+                        <div class="card-body">
                             <h5 class="card-title mt-2"><?php echo $value['Title'] ?></h5>
-                            <div id="reservation_info">
-                                <p class="m-0">Nickname: <?php echo $value['Nickname'] ?></p>
-                                <p class="m-0 mb-1">CIN: <?php echo $value['CIN'] ?></p>
+                            <div id="reservation_info" class="mb-2">
+                                <span class="badge bg-primary">Nickname: <?php echo $value['Nickname'] ?></span>
+                                <span class="badge bg-secondary ms-2">CIN: <?php echo $value['CIN'] ?></span>
                             </div>
                             <form method="post" action="../includes/confirm_return.php">
                                 <input type="hidden" name="id" value="<?php echo $value['Borrowing_ID'] ?>">
@@ -85,15 +82,15 @@ if (isset($_SESSION['Nickname'])) :
                                 <input type="hidden" name="collection_id" value="<?php echo $value['Collection_ID'] ?>">
                                 <button type="submit" class="btn btn-primary my-2">Confirm return</button>
                             </form>
-                            <div class="d-flex justify-content-around">
+                            <div class="d-flex justify-content-around mt-3">
                                 <div><span class="mdi mdi-home"></span>
-                                    <p><?php echo $value['Type_Name'] ?></p>
+                                    <p class="mb-0"><?php echo $value['Type_Name'] ?></p>
                                 </div>
                                 <div><span class="mdi mdi-file-check"></span>
-                                    <p><?php echo $value['Status'] ?></p>
+                                    <p class="mb-0"><?php echo $value['Status'] ?></p>
                                 </div>
                                 <div><span class="mdi mdi-book-open-variant"></span>
-                                    <p><?php echo $value['State'] ?></p>
+                                    <p class="mb-0"><?php echo $value['State'] ?></p>
                                 </div>
                             </div>
                         </div>
@@ -106,7 +103,7 @@ if (isset($_SESSION['Nickname'])) :
                 $total_pages = ceil($total_items / $limit);
                 ?>
             <nav>
-                <ul class="pagination justify-content-center">
+                <ul class="pagination justify-content-center mt-4">
                     <?php
                         if ($page > 1) {
                             echo '<li class="page-item"><a class="page-link" href="?page=' . ($page - 1) . '">&laquo; Previous</a></li>';
