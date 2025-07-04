@@ -16,73 +16,11 @@ checkAccount($_SESSION['Penalty_Count']);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@7.1.96/css/materialdesignicons.min.css" rel="stylesheet" />
-    <style>
-    html,
-    body {
-        height: 100%;
-        margin: 0;
-    }
 
-    .page-wrapper {
-        min-height: 100%;
-        display: flex;
-        flex-direction: column;
-    }
-
-    main {
-        flex: 1;
-    }
-
-    .table-responsive {
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-
-    .table th {
-        background-color: #f8f9fa;
-        border-bottom: 2px solid #dee2e6;
-        font-weight: 600;
-    }
-
-    .status-badge {
-        padding: 4px 8px;
-        border-radius: 12px;
-        font-size: 0.75rem;
-        font-weight: 500;
-    }
-
-    .status-active {
-        background-color: #d1ecf1;
-        color: #0c5460;
-    }
-
-    .status-returned {
-        background-color: #d4edda;
-        color: #155724;
-    }
-
-    .status-expired {
-        background-color: #f8d7da;
-        color: #721c24;
-    }
-
-
-
-    .history-section {
-        margin-bottom: 3rem;
-    }
-
-    .section-header {
-        border-bottom: 2px solid #007bff;
-        padding-bottom: 0.5rem;
-        margin-bottom: 1.5rem;
-    }
-    </style>
 </head>
 
-<body>
-    <div class="page-wrapper">
+<body class="d-flex flex-column min-vh-100 bg-light" style="background: linear-gradient(to right, #f0f7f4, #e3f2ed); color: #1a2e35;">
+    <div class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container px-4 px-lg-5">
             <a class="navbar-brand" href="admin_homepage.php">
@@ -99,7 +37,7 @@ checkAccount($_SESSION['Penalty_Count']);
                     <li class="nav-item"><a class="nav-link" href="users.php">Users</a></li>
                     <li class="nav-item"><a class="nav-link" href="all_reservations.php">Reservations</a></li>
                     <li class="nav-item"><a class="nav-link" href="all_borrowings.php">Borrowings</a></li>
-                    <li  class="nav-item"><a class="nav-link" href="history.php">History</a></li>
+                    <li class="nav-item"><a class="nav-link" href="history.php">History</a></li>
                     <li class="nav-item"><a class="nav-link text-danger" href="../includes/logout.inc.php">Logout</a></li>
                 </ul>
             </div>
@@ -109,20 +47,20 @@ checkAccount($_SESSION['Penalty_Count']);
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-center text-white">
                     <h1 class="display-4 fw-bolder">Borrow & Reservation History</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">Review all your past activity.</p>
+                    <p class="lead fw-normal text-white-50 mb-0">Review every activity here.</p>
                 </div>
             </div>
         </header>
-        <main>
+        <main class="flex-grow-1">
             <section class="py-5">
                 <div class="container px-4 px-lg-5 mt-5">
                     <!-- Borrowing History Section -->
-                    <div class="history-section">
-                        <h3 class="section-header text-primary">
+                    <div class="mb-5">
+                        <h3 class="text-primary border-bottom border-primary pb-2 mb-4">
                             <i class="mdi mdi-book-open-page-variant me-2"></i>
                             Borrowing History
                         </h3>
-                        <div class="table-responsive">
+                        <div class="table-responsive rounded shadow">
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
@@ -201,7 +139,7 @@ checkAccount($_SESSION['Penalty_Count']);
                             <i class="mdi mdi-calendar-clock me-2"></i>
                             Reservation History
                         </h3>
-                        <div class="table-responsive">
+                        <div class="table-responsive rounded shadow">
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
