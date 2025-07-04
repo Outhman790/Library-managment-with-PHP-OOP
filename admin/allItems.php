@@ -90,46 +90,56 @@ if (isset($_SESSION['Nickname'])) :
                         <h5 class="modal-title" id="exampleModalLabel">Add</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form method="post" class="modal-body" enctype="multipart/form-data"
-                        action="../includes/addItem.inc.php">
+                    <form method="post" class="modal-body needs-validation" enctype="multipart/form-data"
+                        action="../includes/addItem.inc.php" id="addItemForm" novalidate>
                         <input type="hidden" name="id_add" class="form-control">
                         <div class="mb-3">
                             <label for="Title_add" class="form-label">Title</label>
-                            <input type="text" name="Title_add" class="form-control" id="Title_add">
+                            <input type="text" name="Title_add" class="form-control" id="Title_add" required minlength="2" maxlength="255">
+                            <div class="invalid-feedback">Please enter a valid title (2-255 characters).</div>
                         </div>
                         <div class="mb-3">
                             <label for="Author_Name_add" class="form-label">Author name</label>
-                            <input type="text" name="Author_Name_add" class="form-control" id="Author_Name_add">
+                            <input type="text" name="Author_Name_add" class="form-control" id="Author_Name_add" required minlength="2" maxlength="255">
+                            <div class="invalid-feedback">Please enter a valid author name (2-255 characters).</div>
                         </div>
                         <div class="mb-3">
                             <label for="cover_image" class="form-label">Image:</label>
-                            <input type="file" name="Cover_Image_add" id="cover_image" class="form-control">
+                            <input type="file" name="Cover_Image_add" id="cover_image" class="form-control" accept="image/jpeg,image/png" required>
+                            <div class="form-text">Only JPEG and PNG files up to 1MB are allowed.</div>
+                            <div class="invalid-feedback">Please select a valid image file (JPEG or PNG, max 1MB).</div>
                         </div>
                         <div class="mb-3">
                             <label for="item_state" class="form-label">State</label>
-                            <select name="state_add" id="item_state" class="form-select">
+                            <select name="state_add" id="item_state" class="form-select" required>
+                                <option value="">Choose...</option>
                                 <option value="Used">Used</option>
                                 <option value="Pretty used">Pretty Used</option>
                                 <option value="New">New</option>
                             </select>
+                            <div class="invalid-feedback">Please select a valid state.</div>
                         </div>
                         <div class="mb-3">
                             <label for="Buy_Date_add" class="form-label">Buy Date</label>
-                            <input type="date" name="Buy_Date_add" class="form-control" id="Buy_Date_add">
+                            <input type="date" name="Buy_Date_add" class="form-control" id="Buy_Date_add" required>
+                            <div class="invalid-feedback">Please select a valid buy date.</div>
                         </div>
                         <div class="mb-3">
                             <label for="Edition_Date_add" class="form-label">Edition date</label>
-                            <input type="date" name="Edition_Date_add" class="form-control" id="Edition_Date_add">
+                            <input type="date" name="Edition_Date_add" class="form-control" id="Edition_Date_add" required>
+                            <div class="invalid-feedback">Please select a valid edition date.</div>
                         </div>
                         <div class="mb-3">
                             <label for="item_type" class="form-label">Type</label>
-                            <select name="type_add" id="item_type" class="form-select">
+                            <select name="type_add" id="item_type" class="form-select" required>
+                                <option value="">Choose...</option>
                                 <option value="1">Book</option>
                                 <option value="2">CD</option>
                                 <option value="3">DVD</option>
                                 <option value="4">Roman</option>
                                 <option value="5">Magazine</option>
                             </select>
+                            <div class="invalid-feedback">Please select a valid type.</div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -541,6 +551,18 @@ if (isset($_SESSION['Nickname'])) :
 
                     return isValid;
                 }
+
+                // Bootstrap validation for add item form
+                (function() {
+                    var form = document.getElementById('addItemForm');
+                    form.addEventListener('submit', function(event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                })();
             });
         </script>
     </body>
