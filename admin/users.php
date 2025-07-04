@@ -15,38 +15,9 @@ include("../includes/get_all_users.php"); // Updated path if moved to /includes
     <title>Manage Users</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
-    <style>
-    body {
-        background: linear-gradient(to right, #1f4037, #99f2c8);
-        color: white;
-        min-height: 100vh;
-    }
-
-    .card {
-        border: none;
-        border-radius: 1rem;
-    }
-
-    .card:hover {
-        transform: scale(1.03);
-        transition: all 0.3s ease-in-out;
-    }
-
-    table {
-        background-color: white;
-        border-radius: .5rem;
-        overflow: hidden;
-    }
-
-    thead {
-        background-color: #0d6efd;
-        color: white;
-    }
-    </style>
 </head>
 
-<body class="d-flex flex-column min-vh-100">
-
+<body class="d-flex flex-column min-vh-100 bg-light" style="background: linear-gradient(to right, #f5f9f0, #e2e8d8); color: #2a3a1e;">
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container px-4 px-lg-5">
@@ -64,21 +35,19 @@ include("../includes/get_all_users.php"); // Updated path if moved to /includes
                     <li class="nav-item"><a class="nav-link" href="users.php">Users</a></li>
                     <li class="nav-item"><a class="nav-link" href="all_reservations.php">Reservations</a></li>
                     <li class="nav-item"><a class="nav-link" href="all_borrowings.php">Borrowings</a></li>
-                    <li  class="nav-item"><a class="nav-link" href="history.php">History</a></li>
-                    <li class="nav-item"><a class="nav-link text-danger" href="../includes/logout.inc.php">Logout</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" href="history.php">History</a></li>
+                    <li class="nav-item"><a class="nav-link text-danger" href="../includes/logout.inc.php">Logout</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-
-    <div class="container my-5">
-        <div class="card p-4">
-            <h2 class="mb-4 text-primary"><i class="bi bi-people-fill"></i> Registered Users</h2>
-            <div class="table-responsive">
-                <table class="table table-striped table-bordered align-middle text-center">
-                    <thead>
+    <div class="container my-5 flex-grow-1">
+        <div class="card p-4 shadow-sm border-0">
+            <h2 class="mb-4 text-primary border-bottom pb-2"><i class="bi bi-people-fill"></i> Registered Users</h2>
+            <div class="table-responsive rounded shadow-sm">
+                <table class="table table-striped table-bordered align-middle text-center mb-0">
+                    <thead class="table-primary">
                         <tr>
                             <?php if (!empty($users)) {
                                 foreach (array_keys($users[0]) as $col) {
