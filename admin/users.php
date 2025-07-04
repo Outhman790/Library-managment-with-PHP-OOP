@@ -16,32 +16,32 @@ include("../includes/get_all_users.php"); // Updated path if moved to /includes
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
     <style>
-        body {
-            background: linear-gradient(to right, #1f4037, #99f2c8);
-            color: white;
-            min-height: 100vh;
-        }
+    body {
+        background: linear-gradient(to right, #1f4037, #99f2c8);
+        color: white;
+        min-height: 100vh;
+    }
 
-        .card {
-            border: none;
-            border-radius: 1rem;
-        }
+    .card {
+        border: none;
+        border-radius: 1rem;
+    }
 
-        .card:hover {
-            transform: scale(1.03);
-            transition: all 0.3s ease-in-out;
-        }
+    .card:hover {
+        transform: scale(1.03);
+        transition: all 0.3s ease-in-out;
+    }
 
-        table {
-            background-color: white;
-            border-radius: .5rem;
-            overflow: hidden;
-        }
+    table {
+        background-color: white;
+        border-radius: .5rem;
+        overflow: hidden;
+    }
 
-        thead {
-            background-color: #0d6efd;
-            color: white;
-        }
+    thead {
+        background-color: #0d6efd;
+        color: white;
+    }
     </style>
 </head>
 
@@ -63,7 +63,8 @@ include("../includes/get_all_users.php"); // Updated path if moved to /includes
                     <li class="nav-item"><a class="nav-link" href="allItems.php">Books</a></li>
                     <li class="nav-item"><a class="nav-link" href="users.php">Users</a></li>
                     <li class="nav-item"><a class="nav-link" href="all_reservations.php">Reservations</a></li>
-                    <li class="nav-item"><a class="nav-link" href="all_borrowings.php">Borrow History</a></li>
+                    <li class="nav-item"><a class="nav-link" href="all_borrowings.php">Borrowings</a></li>
+                    <li  class="nav-item"><a class="nav-link" href="history.php">History</a></li>
                     <li class="nav-item"><a class="nav-link text-danger" href="../includes/logout.inc.php">Logout</a>
                     </li>
                 </ul>
@@ -88,31 +89,31 @@ include("../includes/get_all_users.php"); // Updated path if moved to /includes
                     </thead>
                     <tbody>
                         <?php foreach ($users as $user): ?>
-                            <tr>
-                                <?php foreach ($user as $value): ?>
-                                    <td><?= htmlspecialchars($value) ?></td>
-                                <?php endforeach; ?>
-                            </tr>
+                        <tr>
+                            <?php foreach ($user as $value): ?>
+                            <td><?= htmlspecialchars($value) ?></td>
+                            <?php endforeach; ?>
+                        </tr>
                         <?php endforeach; ?>
                         <?php if (empty($users)): ?>
-                            <tr>
-                                <td colspan="100%">No users found.</td>
-                            </tr>
+                        <tr>
+                            <td colspan="100%">No users found.</td>
+                        </tr>
                         <?php endif; ?>
                     </tbody>
                 </table>
             </div>
 
             <?php if ($totalPages > 1): ?>
-                <nav>
-                    <ul class="pagination justify-content-center mt-4">
-                        <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                            <li class="page-item <?= $i === $page ? 'active' : '' ?>">
-                                <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
-                            </li>
-                        <?php endfor; ?>
-                    </ul>
-                </nav>
+            <nav>
+                <ul class="pagination justify-content-center mt-4">
+                    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                    <li class="page-item <?= $i === $page ? 'active' : '' ?>">
+                        <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                    </li>
+                    <?php endfor; ?>
+                </ul>
+            </nav>
             <?php endif; ?>
         </div>
     </div>
