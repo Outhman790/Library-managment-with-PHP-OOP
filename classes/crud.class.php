@@ -32,12 +32,42 @@ class Library extends dbConnect
         echo "deleted";
     }
 
-    public function updateItem($id, $title, $author, $state, $edition_date, $buy_date, $type, $cover_image)
+    public function updateItem($id, $title, $Author_Name, $state, $Edition_Date, $Buy_Date, $type, $imageFilename)
     {
-        $connection = $this->connect();
-        $statement = $connection->prepare('UPDATE collection SET Title = ?, Author_Name = ?, State = ?, Edition_Date = ?, Buy_Date = ?, Type_ID = ?, Cover_Image = ? WHERE Collection_ID = ?');
-        $statement->execute([$title, $author, $state, $edition_date, $buy_date, $type, $cover_image['name'], $id]);
+        try {
+            $this->connect();
+
+            $stmt = $this->connection->prepare("
+                UPDATE collection 
+                SET Title = ?, Author_Name = ?, State = ?, Edition_Date = ?, Buy_Date = ?, type_ID = ?, Cover_Image = ?
+                WHERE Collection_ID = ?
+            ");
+
+            $result = $stmt->execute([
+                $title,
+                $Author_Name,
+                $state,
+                $Edition_Date,
+                $Buy_Date,
+                $type,
+                $imageFilename,
+                $id
+            ]);
+
+            return $result;
+        } catch (PDOException $e) {
+            throw new Exception('Error updating item: ' . $e->getMessage());
+        }
     }
+
+    public function getItemById($itemID)
+    {
+        $this->connect();
+        $stmt = $this->connection->prepare("SELECT * FROM collection WHERE Collection_ID = ?");
+        $stmt->execute([$itemID]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function countItems()
     {
         try {
