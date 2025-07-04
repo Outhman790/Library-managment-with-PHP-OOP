@@ -91,20 +91,46 @@ if ($_SESSION['Admin'] === 0) :
                                                 <img src="img/<?php echo $value['Cover_Image'] ?>"
                                                     class="img-fluid-custom mw-100" style="height: 23rem;" />
                                             </div>
-                                            <div>
+                                            <div class="card-body">
                                                 <h5 class="card-title mt-2"><?php echo $value['Title'] ?></h5>
-                                                <div class="d-flex justify-content-around">
+                                                <div class="d-flex justify-content-around mb-3">
                                                     <div>
                                                         <span class="mdi mdi-home"></span>
-                                                        <p><?php echo $value['Type_Name'] ?></p>
+                                                        <p class="mb-1"><?php echo $value['Type_Name'] ?></p>
                                                     </div>
                                                     <div>
                                                         <span class="mdi mdi-file-check"></span>
-                                                        <p><?php echo $value['Status'] ?></p>
+                                                        <p class="mb-1"><?php echo $value['Status'] ?></p>
                                                     </div>
                                                     <div>
                                                         <span class="mdi mdi-book-open-variant"></span>
-                                                        <p><?php echo $value['State'] ?></p>
+                                                        <p class="mb-1"><?php echo $value['State'] ?></p>
+                                                    </div>
+                                                </div>
+                                                <div class="text-center">
+                                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#cancelModal<?php echo $value['Reservation_ID'] ?>">
+                                                        <i class="bi bi-x-circle"></i> Cancel Reservation
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <!-- Cancel Reservation Modal -->
+                                            <div class="modal fade" id="cancelModal<?php echo $value['Reservation_ID'] ?>" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="cancelModalLabel">Cancel Reservation</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Are you sure you want to cancel your reservation for "<strong><?php echo htmlspecialchars($value['Title']) ?></strong>"?
+                                                            <br>
+                                                            <small class="text-muted">This action cannot be undone.</small>
+                                                        </div>
+                                                        <div class="modal-footer d-flex justify-content-center">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keep Reservation</button>
+                                                            <a href="includes/cancelReservation.inc.php?id=<?php echo $value['Reservation_ID'] ?>" class="btn btn-danger">Cancel Reservation</a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
