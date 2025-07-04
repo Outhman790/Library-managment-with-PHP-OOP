@@ -27,52 +27,48 @@ if (isset($_SESSION['Nickname'])) {
 <body>
     <!--Main Navigation-->
     <header>
-        <style>
-            #intro {
-                background-image: url("img/gabriel-sollmann-Y7d265_7i08-unsplash.jpg");
-                height: 70vh;
-            }
-
-            .navbar .nav-link {
-                color: #fff !important;
-            }
-        </style>
         <!--Navbar-->
-        <nav id="nav" class="navbar navbar-expand-md d-flex justify-content-between bg-dark">
-            <div class="container-md nav-position">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item">
-                            <a class="navbar-brand" href="index.php">
-                                <img src="img/Olibrary_logo_white.png" alt="Library logo" class="w-auto"
-                                    style="height: 40px;">
-                            </a>
-                        </li>
-                    </ul>
+        <?php if (isset($_SESSION['Nickname']) && $_SESSION['Nickname']) { ?>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container px-4 px-lg-5">
+                    <a class="navbar-brand" href="index.php">
+                        <img src="img/Olibrary_logo.png" alt="Library logo" style="height: 40px;">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="allItems.php">All Items</a></li>
+                            <li class="nav-item"><a class="nav-link" href="my_reservations.php">My Reservations</a></li>
+                            <li class="nav-item"><a class="nav-link" href="my_borrowings.php">My Borrowings</a></li>
+                            <li class="nav-item"><a class="nav-link" href="myProfile.php">My Profile</a></li>
+                            <li class="nav-item"><a class="nav-link text-danger" href="./includes/logout.inc.php">Logout</a></li>
+                        </ul>
+                    </div>
                 </div>
-
-                <div class="justify-content-end" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <!-- diplay nav to connect -->
-                        <?php if (isset($_SESSION['Nickname']) && $_SESSION['Nickname']) { ?>
-                            <button type="button" class="btn btn-light">
-                                <a href="./includes/logout.inc.php">Logout</a>
-                            </button>
-                        <?php } else { ?>
-                            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#sign-in-up">
-                                Connect
-                            </button>
-                        <?php } ?>
-                    </ul>
+            </nav>
+        <?php } else { ?>
+            <nav id="nav" class="navbar navbar-expand-md bg-dark">
+                <div class="container-md d-flex justify-content-between align-items-center">
+                    <a class="navbar-brand" href="index.php">
+                        <img src="img/Olibrary_logo_white.png" alt="Library logo" style="height: 40px;">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="d-flex align-items-center ms-auto" id="navbarNav">
+                        <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#sign-in-up">
+                            Connect
+                        </button>
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
+        <?php } ?>
         <!-- Navbar -->
         <!-- Sign up and Sign in Modal -->
         <div class="modal fade" id="sign-in-up" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -159,7 +155,8 @@ if (isset($_SESSION['Nickname'])) {
 
         <!--  -->
         <!-- Background image -->
-        <div id="intro" class="bg-image shadow-2-strong">
+        <div id="intro" class="bg-image shadow-2-strong d-flex align-items-center justify-content-center text-center"
+            style="background-image: url('img/gabriel-sollmann-Y7d265_7i08-unsplash.jpg'); height: 70vh; background-size: cover; background-position: center;">
             <div class="mask" style="background-color: rgba(0, 0, 0, 0.8)">
                 <div class="container d-flex align-items-center justify-content-center text-center h-100">
                     <div class="text-white">
@@ -230,7 +227,7 @@ if (isset($_SESSION['Nickname'])) {
                                 <p class="card-text">
                                     Learn how small actions build success with this motivational read.
                                 </p>
-                                <a href="#!" class="btn btn-primary">Reserve</a>
+                                <a href="allItems.php" class="btn btn-primary">Reserve</a>
                             </div>
                         </div>
                     </div>
@@ -249,7 +246,7 @@ if (isset($_SESSION['Nickname'])) {
                                 <p class="card-text">
                                     An inspiring story of perseverance and creativity.
                                 </p>
-                                <a href="#!" class="btn btn-primary">Reserve</a>
+                                <a href="allItems.php" class="btn btn-primary">Reserve</a>
                             </div>
                         </div>
                     </div>
@@ -267,7 +264,7 @@ if (isset($_SESSION['Nickname'])) {
                                 <p class="card-text">
                                     James Clear's guide to building good habits that last.
                                 </p>
-                                <a href="#!" class="btn btn-primary">Reserve</a>
+                                <a href="allItems.php" class="btn btn-primary">Reserve</a>
                             </div>
                         </div>
                     </div>
@@ -285,7 +282,7 @@ if (isset($_SESSION['Nickname'])) {
                                 <p class="card-text">
                                     Understand personal finance through this classic bestseller.
                                 </p>
-                                <a href="#!" class="btn btn-primary">Reserve</a>
+                                <a href="allItems.php" class="btn btn-primary">Reserve</a>
                             </div>
                         </div>
                     </div>
