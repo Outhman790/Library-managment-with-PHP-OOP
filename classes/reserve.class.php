@@ -41,7 +41,7 @@ class LibraryItemReservation extends dbConnect
 
                 if ($item_reservation_count > 0) {
                     // There is already an active reservation for this item
-                    echo "<script>if(confirm(\"This item is already reserved by another user.\")) window.location.href='../my_reservations.php'</script>";
+                    echo "<script>alert(\"This item is already reserved by another user.\"); window.location.href='../my_reservations.php';</script>";
                     $this->connection->rollback();
                     return;
                 }
@@ -62,20 +62,20 @@ class LibraryItemReservation extends dbConnect
                     $stmt->execute([$current_date_time, $expiration, $this->item_id, $this->user_id]);
 
                     $this->connection->commit();
-                    echo "<script>if(confirm(\"You've successfully reserved this item\")) window.location.href='../my_reservations.php'</script>";
+                    echo "<script>alert(\"You've successfully reserved this item\"); window.location.href='../my_reservations.php';</script>";
                 } else if ($status === "Reserved") {
-                    echo "<script>if(confirm(\"This item is reserved\")) window.location.href='../my_reservations.php'</script>";
+                    echo "<script>alert(\"This item is reserved\"); window.location.href='../my_reservations.php';</script>";
                 } else if ($status === "Borrowed") {
-                    echo "<script>if(confirm(\"This item is borrowed\")) window.location.href='../my_reservations.php'</script>";
+                    echo "<script>alert(\"This item is borrowed\"); window.location.href='../my_reservations.php';</script>";
                 } else {
-                    echo "<script>if(confirm(\"This item is unavailable\")) window.location.href='../my_reservations.php'</script>";
+                    echo "<script>alert(\"This item is unavailable\"); window.location.href='../my_reservations.php';</script>";
                 }
             } catch (Exception $e) {
                 $this->connection->rollback();
-                echo "Error occurred: " . $e->getMessage();
+                echo "<script>alert('Error occurred: " . addslashes($e->getMessage()) . "'); window.location.href='../my_reservations.php';</script>";
             }
         else :
-            echo "<script>if(confirm(\"You can't reserve more than 3 items at the same time.\")) window.location.href='../my_reservations.php'</script>";
+            echo "<script>alert(\"You can't reserve more than 3 items at the same time.\"); window.location.href='../my_reservations.php';</script>";
         endif;
     }
 }
