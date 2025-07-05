@@ -2,7 +2,7 @@
 session_start();
 include("../classes/dbConnect.class.php");
 include("../classes/get_All_Reservations.class.php");
-if (isset($_SESSION['Nickname'])) :
+if (isset($_SESSION['Nickname'])):
 ?>
 
     <!DOCTYPE html>
@@ -23,7 +23,8 @@ if (isset($_SESSION['Nickname'])) :
         <link href="https://cdn.jsdelivr.net/npm/@mdi/font@7.1.96/css/materialdesignicons.min.css" rel="stylesheet" />
     </head>
 
-    <body class="d-flex flex-column min-vh-100 bg-light" style="background: linear-gradient(to right, #f0f7f4, #e3f2ed); color: #1a2e35;">
+    <body class="d-flex flex-column min-vh-100 bg-light"
+        style="background: linear-gradient(to right, #f0f7f4, #e3f2ed); color: #1a2e35;">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
                 <a class="navbar-brand" href="admin_homepage.php">
@@ -41,7 +42,8 @@ if (isset($_SESSION['Nickname'])) :
                         <li class="nav-item"><a class="nav-link" href="all_reservations.php">Reservations</a></li>
                         <li class="nav-item"><a class="nav-link" href="all_borrowings.php">Borrowings</a></li>
                         <li class="nav-item"><a class="nav-link" href="history.php">History</a></li>
-                        <li class="nav-item"><a class="nav-link text-danger" href="../includes/logout.inc.php">Logout</a></li>
+                        <li class="nav-item"><a class="nav-link text-danger" href="../includes/logout.inc.php">Logout</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -89,7 +91,8 @@ if (isset($_SESSION['Nickname'])) :
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Confirm Reservation</h5>
+                                                                <h5 class="modal-title" id="exampleModalLabel">Confirm Reservation
+                                                                </h5>
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                                     aria-label="Close"></button>
                                                             </div>
@@ -106,21 +109,29 @@ if (isset($_SESSION['Nickname'])) :
                                                 </div>
 
                                                 <!-- Cancel Reservation Modal -->
-                                                <div class="modal fade" id="cancelModal<?php echo $value['Reservation_ID'] ?>" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
+                                                <div class="modal fade" id="cancelModal<?php echo $value['Reservation_ID'] ?>"
+                                                    tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="cancelModalLabel">Cancel Reservation</h5>
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                <h5 class="modal-title" id="cancelModalLabel">Cancel Reservation
+                                                                </h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                    aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                Are you sure you want to cancel the reservation for "<strong><?php echo htmlspecialchars($value['Title']) ?></strong>" by user <strong><?php echo htmlspecialchars($value['Nickname']) ?></strong>?
+                                                                Are you sure you want to cancel the reservation for
+                                                                "<strong><?php echo htmlspecialchars($value['Title']) ?></strong>"
+                                                                by user
+                                                                <strong><?php echo htmlspecialchars($value['Nickname']) ?></strong>?
                                                                 <br><br>
                                                                 <small class="text-muted">This action cannot be undone.</small>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keep Reservation</button>
-                                                                <a href="../includes/adminCancelReservation.inc.php?id=<?php echo $value['Reservation_ID'] ?>" class="btn btn-danger">Cancel Reservation</a>
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Keep Reservation</button>
+                                                                <a href="../includes/adminCancelReservation.inc.php?id=<?php echo $value['Reservation_ID'] ?>"
+                                                                    class="btn btn-danger">Cancel Reservation</a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -189,7 +200,7 @@ if (isset($_SESSION['Nickname'])) :
 
     </html>
 <?php
-else :
+else:
     header('location: ../index.php');
 endif;
 ?>
