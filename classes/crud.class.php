@@ -80,6 +80,19 @@ class Library extends dbConnect
             throw new Exception('Error counting Items: ' . $e->getMessage());
         }
     }
+
+    public function getRandomItems($limit = 4)
+    {
+        try {
+            $this->connect();
+            $statement = $this->connection->prepare('SELECT * FROM collection JOIN types ON collection.Type_ID = types.Type_ID ORDER BY RAND() LIMIT ?');
+            $statement->bindValue(1, (int) $limit, PDO::PARAM_INT);
+            $statement->execute();
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            throw new Exception('Error getting random Items: ' . $e->getMessage());
+        }
+    }
     public function getAllUsers()
     {
         try {
