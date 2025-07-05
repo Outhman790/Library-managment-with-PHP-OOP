@@ -72,7 +72,7 @@ if (isset($_SESSION['Nickname'])) :
                                                     <span class="badge bg-primary">Nickname: <?php echo $value['Nickname'] ?></span>
                                                     <span class="badge bg-secondary ms-2">CIN: <?php echo $value['CIN'] ?></span>
                                                 </div>
-                                                <div class="d-flex gap-2 mb-3">
+                                                <div class="d-flex gap-2 mb-3 d-flex justify-content-center">
                                                     <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
                                                         data-bs-target="#confirmationModal<?php echo $value['Collection_ID'] ?>">
                                                         <i class="bi bi-check-circle"></i> Confirm
