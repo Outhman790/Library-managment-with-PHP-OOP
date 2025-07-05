@@ -109,17 +109,42 @@ http://localhost/Library-managment-with-PHP-OOP/
 ---
 
 ### 📸 Screenshots
-
+======> USER <======
 Homepage:
-![Screenshot 2025-07-03 at 04-01-33 Homepage](https://github.com/user-attachments/assets/188d8040-4295-4696-afb0-5c90155f90c8)
+![image](https://github.com/user-attachments/assets/1a667ebf-7ae8-4a05-8632-f05e05fb1fbb)
 All items ( take reservation ):
 ![image](https://github.com/user-attachments/assets/496d8008-b095-4850-94f0-0e06ce3d89b6)
 My reservations: 
-![image](https://github.com/user-attachments/assets/893e2710-7d6b-4d5b-a472-857754fca7e9)
+![image](https://github.com/user-attachments/assets/a3cc7a0d-44a7-41a7-9adf-244c42f4363d)
 My borrowings: 
 ![image](https://github.com/user-attachments/assets/61abcb32-e5af-4949-a51d-b9daa04f9cad)
-My profile ( update example ): 
+My profile ( update success message ): 
 ![image](https://github.com/user-attachments/assets/f1ad332a-77a8-482b-98ef-cbe8fc21f7ff)
+My profile ( validation ): 
+![image](https://github.com/user-attachments/assets/6e6631b2-d4ae-4436-bc2f-823c1aaa7224)
+Can't reserve more than 3 items: 
+![image](https://github.com/user-attachments/assets/a38b7c43-3c90-4c5f-b598-9df685d9918f)
+Can't reserve a reserved/borrowed Item:
+![image](https://github.com/user-attachments/assets/6d49576d-80b9-4d9d-a9ac-3833733ede6f)
+
+
+======> ADMIN <======
+Admin Dashboard:
+![image](https://github.com/user-attachments/assets/96190c2c-ebbb-4aa9-a8e4-04ab6fe7991d)
+See all Items: 
+![image](https://github.com/user-attachments/assets/d0671ca3-aefb-4afc-a2d9-9e2a37aee6cb)
+Confirm/Cancel reservations:
+![image](https://github.com/user-attachments/assets/d2eeb713-946c-43d6-b32d-548ca46cb505)
+See current Borrowings: 
+![image](https://github.com/user-attachments/assets/f5e3dac1-039e-4441-920f-861dd7bc0dec)
+Confirm item return: 
+![image](https://github.com/user-attachments/assets/92656802-7cb6-4603-b567-e979fd1cebd5)
+See all Reservations && Borrowings history:
+![image](https://github.com/user-attachments/assets/c47427d0-c64b-48e8-87ad-482d89f9912f)
+See all users: 
+![image](https://github.com/user-attachments/assets/21f40c10-60c0-46c9-8712-10030e6460f7)
+
+
 
 
 
