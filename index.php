@@ -1,9 +1,15 @@
 <?php
 session_start();
 require_once 'functions/check_account.func.php';
+require_once 'classes/crud.class.php';
+
 if (isset($_SESSION['Nickname'])) {
     checkAccount($_SESSION['Penalty_Count']);
 }
+
+// Get 4 random items for the "You might like" section
+$libraryObj = new Library();
+$randomItems = $libraryObj->getRandomItems(4);
 ?>
 
 <!DOCTYPE html>
@@ -165,8 +171,13 @@ if (isset($_SESSION['Nickname'])) {
                             Our goal is to make free education resources available for
                             everyone
                         </h5>
-                        <a class="btn btn-outline-light btn-lg m-2" href="allItems.php" role="button"
-                            rel="nofollow">Take a reservation</a>
+                        <?php if (isset($_SESSION['Nickname']) && $_SESSION['Nickname']) { ?>
+                            <a class="btn btn-outline-light btn-lg m-2" href="allItems.php" role="button"
+                                rel="nofollow">Take a reservation</a>
+                        <?php } else { ?>
+                            <a class="btn btn-outline-light btn-lg m-2" href="#" role="button"
+                                data-bs-toggle="modal" data-bs-target="#sign-in-up">Take a reservation</a>
+                        <?php } ?>
                         <a class="btn btn-outline-light btn-lg m-2" href="#why-use-olibrary" role="button">About us</a>
                     </div>
                 </div>
@@ -214,78 +225,39 @@ if (isset($_SESSION['Nickname'])) {
                 <h4 class="mb-5"><strong>You might like</strong></h4>
 
                 <div class="row">
-                    <div class="col-lg-3 col-md-4 mb-4">
-                        <div class="card">
-                            <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                                <img src="img/compound-effect-600x900.png" class="img-fluid-custom" />
-                                <a href="#!">
-                                    <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
-                                </a>
+                    <?php if (!empty($randomItems)): ?>
+                        <?php foreach ($randomItems as $item): ?>
+                            <div class="col-lg-3 col-md-4 mb-4">
+                                <div class="card">
+                                    <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                                        <img src="img/<?php echo htmlspecialchars($item['Cover_Image']); ?>" class="img-fluid-custom"
+                                            alt="<?php echo htmlspecialchars($item['Title']); ?>"
+                                            onerror="this.src='img/default-book-cover.jpg';" />
+                                        <a href="#!">
+                                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
+                                        </a>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title"><?php echo htmlspecialchars($item['Title']); ?></h5>
+                                        <p class="card-text">
+                                            <strong>Author:</strong> <?php echo htmlspecialchars($item['Author_Name']); ?><br>
+                                            <strong>Type:</strong> <?php echo htmlspecialchars($item['Type_Name']); ?><br>
+                                            <strong>State:</strong> <?php echo htmlspecialchars($item['State']); ?>
+                                        </p>
+                                        <?php if (isset($_SESSION['Nickname']) && $_SESSION['Nickname']) { ?>
+                                            <a href="allItems.php" class="btn btn-primary">Reserve</a>
+                                        <?php } else { ?>
+                                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#sign-in-up">Reserve</a>
+                                        <?php } ?>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="card-body">
-                                <h5 class="card-title">The Compound Effect</h5>
-                                <p class="card-text">
-                                    Learn how small actions build success with this motivational read.
-                                </p>
-                                <a href="allItems.php" class="btn btn-primary">Reserve</a>
-                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <div class="col-12 text-center">
+                            <p class="text-muted">No items available at the moment.</p>
                         </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-4 mb-4">
-                        <div class="card">
-                            <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                                <img src="img/design-for-writers-book-cover-tf-2-a-million-to-one.jpg"
-                                    class="img-fluid-custom" />
-                                <a href="#!">
-                                    <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
-                                </a>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">A Million to One</h5>
-                                <p class="card-text">
-                                    An inspiring story of perseverance and creativity.
-                                </p>
-                                <a href="allItems.php" class="btn btn-primary">Reserve</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-4 mb-4">
-                        <div class="card">
-                            <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                                <img src="img/0735211299.01._SCLZZZZZZZ_SX500_.jpg" class="img-fluid-custom" />
-                                <a href="#!">
-                                    <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
-                                </a>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Atomic Habits</h5>
-                                <p class="card-text">
-                                    James Clear's guide to building good habits that last.
-                                </p>
-                                <a href="allItems.php" class="btn btn-primary">Reserve</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-4 mb-4">
-                        <div class="card">
-                            <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                                <img src="img/RichDad_PoorDad.webp" class="img-fluid-custom" />
-                                <a href="#!">
-                                    <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
-                                </a>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Rich Dad Poor Dad</h5>
-                                <p class="card-text">
-                                    Understand personal finance through this classic bestseller.
-                                </p>
-                                <a href="allItems.php" class="btn btn-primary">Reserve</a>
-                            </div>
-                        </div>
-                    </div>
+                    <?php endif; ?>
                 </div>
             </section>
             <!--Section: Content-->
