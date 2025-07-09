@@ -12,21 +12,36 @@ jobs:
 
     steps:
       - name: 📥 Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: 🔐 Set up SSH Key
-        uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
 
       - name: 🚀 SSH & Deploy to EC2
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
-            echo "Current Git Commit:"
-            git log -1
+            echo "➡️ Current Git Commit:"
             cd /var/www/library
-            git pull origin main
-            sudo chown -R www-data:www-data .
-            sudo chmod -R 755 .
+
+            echo "🔄 Pulling latest code..."
+            sudo -u www-data git fetch origin
+            sudo -u www-data git reset --hard origin/main
+
+            echo "🔒 Fixing permissions..."
+            sudo chown -R www-data:www-data /var/www/library
+            sudo find /var/www/library -type d -exec chmod 755 {} \;
+            sudo find /var/www/library -type f -exec chmod 644 {} \;
+
+            echo "🔁 Reloading PHP-FPM & Nginx..."
+            sudo systemctl reload php8.1-fpm
             sudo systemctl reload nginx
+
+            # Uncomment to sync .env from GitHub secret
+            # echo "${{ secrets.ENV_PROD }}" > /var/www/library/.env
+
+            echo "✅ Deployment Complete!"
           EOF
